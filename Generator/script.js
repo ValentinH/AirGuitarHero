@@ -135,15 +135,16 @@ function Song() {
 }
 
 function Note(start, length) {
-	this.start = round50(start);
-	this.length = round50(length);
+	this.start = round(200, start);
+	this.length = round(200, length);
 }
 
 
-function round50(n)
+function round(r, n)
 {
-	var mod = n%50;
-	if(mod<25) n = n -mod;
-	else n = n + (50-mod);
+	var mod = n%r;
+	if(mod<r/2) n = n -mod;
+	else n = n + (r-mod);
+	if(n==0) n = r;
 	return n;
 }

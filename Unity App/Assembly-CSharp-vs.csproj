@@ -55,8 +55,11 @@
      <Compile Include="Assets\Kinect\Script\Kinect\KinectWrapper\KinectRecorder.cs" />
      <Compile Include="Assets\Kinect\Script\Kinect\KinectWrapper\KinectSensor.cs" />
      <Compile Include="Assets\Kinect\Script\Kinect\KinectWrapper\SkeletonWrapper.cs" />
+     <Compile Include="Assets\Scripts\MainManager.cs" />
      <Compile Include="Assets\Scripts\MiniJSON.cs" />
      <Compile Include="Assets\Scripts\MyKinectController.cs" />
+     <Compile Include="Assets\Scripts\Note.cs" />
+     <Compile Include="Assets\Scripts\NoteManager.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
