@@ -12,7 +12,6 @@ public class MyKinectController : MonoBehaviour
 	public GameObject Head;	
 	public float scale = 1.0f;
 	
-	public GUIText pointsLabel;
 	
 	private GameObject[] _bones;
 	
@@ -22,7 +21,6 @@ public class MyKinectController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		pointsLabel.text = "Points: 0";
 		noteGauche = noteDroite = Note.Which.NONE;		
 	}
 	
@@ -54,12 +52,14 @@ public class MyKinectController : MonoBehaviour
 			Vector2 leftPos = new Vector2 (LeftHand.transform.localPosition.x, LeftHand.transform.localPosition.y);
 			Vector2 rightPos = new Vector2 (RightHand.transform.localPosition.x, RightHand.transform.localPosition.y);
 			
+			//détermination des notes
 			if(headPos != new Vector2(0,0))
 			{
 				noteGauche = getNote (headPos, leftPos);
 				noteDroite = getNote (headPos, rightPos);
 			}
-			
+			else
+				noteGauche = noteDroite = Note.Which.NONE;				
 		}
 	}
 	
