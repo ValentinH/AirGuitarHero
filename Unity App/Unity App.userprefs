@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MyKinectController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\MyKinectController.cs" Line="73" Column="36" />
-      <File FileName="Assets\Scripts\NoteManager.cs" Line="99" Column="88" />
-      <File FileName="Assets\Scripts\MainManager.cs" Line="25" Column="27" />
+      <File FileName="Assets\Scripts\MyKinectController.cs" Line="92" Column="29" />
+      <File FileName="Assets\Scripts\NoteManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainManager.cs" Line="94" Column="25" />
       <File FileName="Assets\Scripts\Note.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\NoteBehaviour.cs" Line="1" Column="1" />
     </Files>

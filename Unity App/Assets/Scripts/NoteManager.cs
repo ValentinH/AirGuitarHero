@@ -3,7 +3,6 @@ using System.Collections;
 
 public class NoteManager : MonoBehaviour 
 {
-	public GUIText label;
 	public GameObject startPoint;
 	public GameObject notePrefab;
 	public GameObject toucheObject;
@@ -21,6 +20,12 @@ public class NoteManager : MonoBehaviour
 	//si la piste à commencer
 	protected bool initialized;	
 	
+	//temps de la prochaine note
+	protected float nextNoteTime;
+	//temps de la dernière note
+	protected float previousNoteEnd;
+	//si une note peut etre jouée (bras baissé)
+	protected bool valide;
 	//si une note est actellement jouée
 	protected bool active;
 	//temps de début de la note
@@ -32,6 +37,8 @@ public class NoteManager : MonoBehaviour
 	
 	protected ArrayList noteObjects;
 	
+	protected Color originalColor;
+	
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
@@ -41,6 +48,9 @@ public class NoteManager : MonoBehaviour
 		this.initialized = false;
 		this.noteStart = 0;
 		this.noteObjects = new ArrayList();
+		this.active = false;
+		this.nextNoteTime = 0;
+		this.previousNoteEnd = 0;
 	}
 	
 	void Update () 
@@ -48,55 +58,77 @@ public class NoteManager : MonoBehaviour
 		//si la musique a commencée
 		if(this.initialized)
 		{
-			//si une note est actuellement jouée
-			if(this.active)
+			//gestion de la note jouée par le joueur
+			if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
+			{
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);	
+				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);	
+			}
+			else
+			{
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 1f, toucheObject.transform.position.z);
+				toucheObject.transform.renderer.material.color = new Color(39f/255,45f/255,255f/255,255f/255);	
+			}
+			
+			
+			if(!this.active)
+			{				
+				if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
+				{
+					// si la note est jouée trop tot
+					if(getTime()< this.nextNoteTime - this.mainManager.timeBeforeNote && getTime() > this.previousNoteEnd + this.mainManager.timeAfterNote)
+					{
+						this.valide = false;
+						this.mainManager.resetCombo();
+					}
+				}
+				else
+				{					
+					this.valide = true;
+				}
+			}//si une note est actuellement jouée
+			else
 			{
 				// si la note est jouée à temps par le joueur	
 				if(getTime()-this.noteStart < this.mainManager.reflexTime)
 				{
-					if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
-					{
-						if(!played)
+					if(this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste)
+					{						
+						if(this.valide && !this.played)
 						{
-							this.played = true;
-							setCurrentNoteColor(Color.green);							
-							this.label.text = "OK";
+							this.played = true;	
+							setCurrentNoteColor(Color.green);	
 							this.mainManager.addPoints(100);
+							this.mainManager.addCombo();
 						}
 						else
 						{						
-							this.mainManager.addPoints(1);	
+							this.mainManager.addPoints(1); 	
 						}
-					}
-					else
-					{								
-							setCurrentNoteColor(Color.red);
 					}
 				}
 				else
-				{		
+				{
 					if(!played && !missed)
 					{
 						this.missed = true;
 						setCurrentNoteColor(Color.red);
-						this.label.text = "FAIL";
+						this.mainManager.resetCombo();
 					}
 					else
-						if(played)
-						{					
-							this.mainManager.addPoints(1);									
+						if(played && !missed)
+						{	
+							if(this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste)
+							{
+								this.mainManager.addPoints(1);
+							}
+							else
+							{								
+								setCurrentNoteColor(this.originalColor);
+								this.missed = true;
+							}
 						}
 				}
-			}
-			
-			//gestion de la note jouée par le joueur
-			if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
-			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);
-			}
-			else
-			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 1f, toucheObject.transform.position.z);				
 			}
 		}
 	}
@@ -105,7 +137,8 @@ public class NoteManager : MonoBehaviour
 	{
 		if(this.noteObjects.Count > 0)
 		{
-			GameObject noteObject = (GameObject) this.noteObjects[0];
+			GameObject noteObject = (GameObject) this.noteObjects[0];			
+			this.originalColor = noteObject.transform.renderer.material.color;
 			noteObject.transform.renderer.material.color = c;
 		}	
 	}
@@ -114,7 +147,7 @@ public class NoteManager : MonoBehaviour
 	{
 		this.piste = piste;
 		this.notesListe = liste;
-		this.beginning = Time.time;
+		this.beginning = Time.timeSinceLevelLoad;
 		this.initialized = true;
 		StartCoroutine(playNotes());
 		StartCoroutine(renderNotes());
@@ -131,24 +164,30 @@ public class NoteManager : MonoBehaviour
     }
 	
 	IEnumerator playNote(float start, float length) 
-	{		
+	{
+		//gestion du temps de validité de la note (avant de pouvoir la jouer)
+		this.previousNoteEnd = getTime();
+		this.nextNoteTime = this.mainManager.timeToNote + start;
+		this.valide = true;
 		//attente avant de jouer la prochaine note
 		yield return new WaitForSeconds(this.mainManager.timeToNote + start-getTime());
 		
 		//la note est jouée
-		this.noteStart = getTime();
 		this.active = true;
+		this.noteStart = getTime();
 		this.played = false;
 		this.missed = false;
-		//this.guiTexture.enabled = true;	
+		
+		if(this.mainManager.debug)
+			transform.guiTexture.enabled = true;
 		
 		//attente avant d'arreter la note
 		yield return new WaitForSeconds(length);
 		
 		//la note est finie
+		if(this.mainManager.debug)
+			transform.guiTexture.enabled = false;
 		this.active = false;
-		//this.guiTexture.enabled = false;		
-		this.label.text = "";
 		if(this.noteObjects.Count > 0)
 			this.noteObjects.RemoveAt(0);
 		
@@ -187,7 +226,7 @@ public class NoteManager : MonoBehaviour
 	
 	protected float getTime()
 	{
-		return (Time.time-this.beginning);
+		return (Time.timeSinceLevelLoad-this.beginning);
 	}
 	
 }

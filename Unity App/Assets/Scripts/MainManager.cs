@@ -9,7 +9,11 @@ public class MainManager : MonoBehaviour
 	//PARAMETRES
 	public float timeToNote = 2f;
 	public float reflexTime = 0.1f;
+	public float timeAfterNote = 0.3f;
+	public float timeBeforeNote = 0.1f;
 	public int countdown = 3;
+	public bool debug = false;
+	public float decalageMusique = 0.5f;
 	
 	public GUIText countdownLabel;
 	public GUITexture AreaA;
@@ -22,18 +26,39 @@ public class MainManager : MonoBehaviour
 	protected float beginning;	
 	
 	public GUIText pointsLabel;
-	protected int points = 0;
+	protected int points;
+	
+	public GUIText comboLabel;
+	protected int combo;
+	
+	public GUIText multiplieurlabel;
+	protected int multipieur;
+	
+	public TextAsset jsonFile;
 	
 	// Use this for initialization
-	void Start () 
+	IEnumerator Start () 
 	{		
+		
 		this.pointsLabel.text = "Points: 0";
+		this.comboLabel.text = "Combo: 0";
+		this.multiplieurlabel.text = "Multiplieur: 1";
 		this.started = false;
 		this.countdownOver = false;
-		this.countdownLabel.text = countdown.ToString();
-		initializeFromJSON();		
+		this.countdownLabel.text = countdown.ToString();	
 		this.beginning = Time.time;
 		points = 0;
+		combo = 0;
+		multipieur = 1;
+		
+		initializeFromJSON();	
+		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
+		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
+		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
+		
+		//decalage musique
+		yield return new WaitForSeconds(this.decalageMusique);
+		audio.Play();
 		
 	}
 	
@@ -44,10 +69,6 @@ public class MainManager : MonoBehaviour
 		{
 			if(this.countdownOver)
 			{
-				//lancement des pistes de notes
-				AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
-				AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
-				AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
 				this.started = true;
 			}
 			else
@@ -70,10 +91,7 @@ public class MainManager : MonoBehaviour
 	private void initializeFromJSON()
 	{
 		//lecture du fichier contenant les notes
-		String fileName = "music.json";
-		StreamReader sr = new StreamReader(Application.dataPath + "/" + fileName);
-		String json = sr.ReadToEnd();
-    	sr.Close();
+		String json = jsonFile.text;
 		
 		//parsing du JSON
 		IDictionary search = (IDictionary)Json.Deserialize (json);
@@ -105,8 +123,35 @@ public class MainManager : MonoBehaviour
 	
 	public void addPoints(int points)
 	{
-		this.points += points;	
+		this.points += (points*multipieur);	
 		this.pointsLabel.text = "Points: "+this.points;
+	}
+	
+	public void addCombo()
+	{
+		this.combo++;	
+		this.comboLabel.text = "Combo: "+this.combo;
+		setMultiplieur();
+	}
+	
+	public void resetCombo()
+	{
+		this.combo=0;	
+		this.comboLabel.text = "Combo: "+this.combo;
+		setMultiplieur();
+	}
+	
+	protected void setMultiplieur()
+	{
+		if(combo < 10)
+			this.multipieur = 1;
+		else if(combo < 30)
+			this.multipieur = 2;
+		else if(combo < 50)
+			this.multipieur = 4;
+		else
+			this.multipieur = 8;
+		this.multiplieurlabel.text = "Multiplieur: "+this.multipieur;
 	}
 	
 	

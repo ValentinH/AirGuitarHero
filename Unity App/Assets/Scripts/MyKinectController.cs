@@ -11,6 +11,7 @@ public class MyKinectController : MonoBehaviour
 	public GameObject RightHand;
 	public GameObject Head;	
 	public float scale = 1.0f;
+	public bool clavier = false;
 	
 	
 	private GameObject[] _bones;
@@ -30,42 +31,65 @@ public class MyKinectController : MonoBehaviour
 		//update all of the bones positions
 		if (sw.pollSkeleton ()) 
 		{
-			//Head management index=3
-			Head.transform.localPosition = new Vector3 (
-						sw.bonePos [0, 3].x * scale,
-						sw.bonePos [0, 3].y * scale,
-						LeftHand.transform.localPosition.z);			
-			
-			//LeftHand management index=7
-			LeftHand.transform.localPosition = new Vector3 (
-						sw.bonePos [0, 7].x * scale,
-						sw.bonePos [0, 7].y * scale,
-						LeftHand.transform.localPosition.z);			
-			
-			//RightHand management index=11
-			RightHand.transform.localPosition = new Vector3 (
-						sw.bonePos [0, 11].x * scale,
-						sw.bonePos [0, 11].y * scale,
-						LeftHand.transform.localPosition.z);
-			
-			Vector2 headPos = new Vector2 (Head.transform.localPosition.x, Head.transform.localPosition.y);
-			Vector2 leftPos = new Vector2 (LeftHand.transform.localPosition.x, LeftHand.transform.localPosition.y);
-			Vector2 rightPos = new Vector2 (RightHand.transform.localPosition.x, RightHand.transform.localPosition.y);
-			
-			//détermination des notes
-			if(headPos != new Vector2(0,0))
+			if(clavier)
 			{
-				noteGauche = getNote (headPos, leftPos);
-				noteDroite = getNote (headPos, rightPos);
+				noteGauche = noteDroite = Note.Which.NONE;
+				if(Input.GetKey(KeyCode.LeftArrow))
+					noteGauche = Note.Which.A;
+				if(Input.GetKey(KeyCode.DownArrow))
+				{
+					if(noteGauche == Note.Which.NONE)
+						noteGauche = Note.Which.B;
+					else
+						noteDroite = Note.Which.B;
+				}
+				if(Input.GetKey(KeyCode.RightArrow))
+				{
+					if(noteGauche == Note.Which.NONE)
+						noteGauche = Note.Which.C;
+					else
+						noteDroite = Note.Which.C;
+				}				
 			}
 			else
-				noteGauche = noteDroite = Note.Which.NONE;				
+			{
+				//Head management index=3
+				Head.transform.localPosition = new Vector3 (
+							sw.bonePos [0, 3].x * scale,
+							sw.bonePos [0, 3].y * scale,
+							LeftHand.transform.localPosition.z);			
+				
+				//LeftHand management index=7
+				LeftHand.transform.localPosition = new Vector3 (
+							sw.bonePos [0, 7].x * scale,
+							sw.bonePos [0, 7].y * scale,
+							LeftHand.transform.localPosition.z);			
+				
+				//RightHand management index=11
+				RightHand.transform.localPosition = new Vector3 (
+							sw.bonePos [0, 11].x * scale,
+							sw.bonePos [0, 11].y * scale,
+							LeftHand.transform.localPosition.z);
+				
+				Vector2 headPos = new Vector2 (Head.transform.localPosition.x, Head.transform.localPosition.y);
+				Vector2 leftPos = new Vector2 (LeftHand.transform.localPosition.x, LeftHand.transform.localPosition.y);
+				Vector2 rightPos = new Vector2 (RightHand.transform.localPosition.x, RightHand.transform.localPosition.y);
+				
+				//détermination des notes
+				if(headPos != new Vector2(0,0))
+				{
+					noteGauche = getNote (headPos, leftPos);
+					noteDroite = getNote (headPos, rightPos);
+				}
+				else
+					noteGauche = noteDroite = Note.Which.NONE;	
+			}
 		}
 	}
 	
 	private Note.Which getNote (Vector2 headPos, Vector2 handPos)
 	{
-		if (handPos.y >= headPos.y - 0.25) {
+		if (handPos.y >= headPos.y) {
 			if (handPos.x > headPos.x + 0.25)
 			{
 				return Note.Which.C;
