@@ -16,7 +16,7 @@ public class MyKinectController : MonoBehaviour
 	private GameObject[] _bones;
 	
 	public Note.Which noteGauche, noteDroite;
-
+	
 	
 	// Use this for initialization
 	void Start ()
@@ -65,10 +65,12 @@ public class MyKinectController : MonoBehaviour
 	
 	private Note.Which getNote (Vector2 headPos, Vector2 handPos)
 	{
-		if (handPos.y >= headPos.y - 0.2) {
-			if (handPos.x > headPos.x + 0.2)
+		if (handPos.y >= headPos.y - 0.25) {
+			if (handPos.x > headPos.x + 0.25)
+			{
 				return Note.Which.C;
-			if (handPos.x < headPos.x - 0.2)
+			}
+			if (handPos.x < headPos.x - 0.25)
 				return Note.Which.A;
 			
 			return Note.Which.B;

@@ -63,6 +63,7 @@ public class MainManager : MonoBehaviour
 					this.countdownLabel.text = val.ToString();
 				}
 			}
+			
 		}
 	}
 	

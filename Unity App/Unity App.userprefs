@@ -1,8 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\Cours\RV01\TD2\Unity\Assets\CubeControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MyKinectController.cs">
     <Files>
-      <File FileName="..\..\..\Cours\RV01\TD2\Unity\Assets\CubeControl.cs" Line="49" Column="71" />
+      <File FileName="Assets\Scripts\MyKinectController.cs" Line="73" Column="36" />
+      <File FileName="Assets\Scripts\NoteManager.cs" Line="99" Column="88" />
+      <File FileName="Assets\Scripts\MainManager.cs" Line="25" Column="27" />
+      <File FileName="Assets\Scripts\Note.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NoteBehaviour.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

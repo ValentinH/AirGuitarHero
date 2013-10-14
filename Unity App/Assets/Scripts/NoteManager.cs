@@ -6,6 +6,7 @@ public class NoteManager : MonoBehaviour
 	public GUIText label;
 	public GameObject startPoint;
 	public GameObject notePrefab;
+	public GameObject toucheObject;
 	
 	//déterminant de la piste (A, B ou C)
 	protected Note.Which piste;	
@@ -58,7 +59,7 @@ public class NoteManager : MonoBehaviour
 						if(!played)
 						{
 							this.played = true;
-							setCurrentNoteColor(Color.green);
+							setCurrentNoteColor(Color.green);							
 							this.label.text = "OK";
 							this.mainManager.addPoints(100);
 						}
@@ -86,6 +87,16 @@ public class NoteManager : MonoBehaviour
 							this.mainManager.addPoints(1);									
 						}
 				}
+			}
+			
+			//gestion de la note jouée par le joueur
+			if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
+			{
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);
+			}
+			else
+			{
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 1f, toucheObject.transform.position.z);				
 			}
 		}
 	}
