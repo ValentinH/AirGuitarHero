@@ -34,6 +34,8 @@ public class NoteManager : MonoBehaviour
 	protected bool played;
 	//si une note a été ratée par le joueur
 	protected bool missed;
+	//si le son d'erreur a été joué
+	protected bool soundPlayed;
 	
 	protected ArrayList noteObjects;
 	
@@ -51,6 +53,7 @@ public class NoteManager : MonoBehaviour
 		this.active = false;
 		this.nextNoteTime = 0;
 		this.previousNoteEnd = 0;
+		this.soundPlayed = false;
 	}
 	
 	void Update () 
@@ -72,12 +75,18 @@ public class NoteManager : MonoBehaviour
 			
 			
 			if(!this.active)
-			{				
+			{			
 				if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
 				{
 					// si la note est jouée trop tot
 					if(getTime()< this.nextNoteTime - this.mainManager.timeBeforeNote && getTime() > this.previousNoteEnd + this.mainManager.timeAfterNote)
-					{
+					{			
+						if(!this.soundPlayed)
+						{
+							audio.Play();
+							this.soundPlayed = true;
+						}
+						
 						this.valide = false;
 						this.mainManager.resetCombo();
 					}
@@ -85,6 +94,7 @@ public class NoteManager : MonoBehaviour
 				else
 				{					
 					this.valide = true;
+					this.soundPlayed = false;
 				}
 			}//si une note est actuellement jouée
 			else
@@ -97,13 +107,12 @@ public class NoteManager : MonoBehaviour
 						if(this.valide && !this.played)
 						{
 							this.played = true;	
-							setCurrentNoteColor(Color.green);	
-							this.mainManager.addPoints(100);
-							this.mainManager.addCombo();
+							setCurrentNoteColor(Color.green);
+							this.mainManager.addNote(true);
 						}
 						else
 						{						
-							this.mainManager.addPoints(1); 	
+							this.mainManager.addPoints(1); 
 						}
 					}
 				}
@@ -113,7 +122,8 @@ public class NoteManager : MonoBehaviour
 					{
 						this.missed = true;
 						setCurrentNoteColor(Color.red);
-						this.mainManager.resetCombo();
+						this.mainManager.addNote(false);
+						audio.Play();
 					}
 					else
 						if(played && !missed)

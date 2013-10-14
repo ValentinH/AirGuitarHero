@@ -31,8 +31,12 @@ public class MainManager : MonoBehaviour
 	public GUIText comboLabel;
 	protected int combo;
 	
-	public GUIText multiplieurlabel;
-	protected int multipieur;
+	public GUIText multiplicateurlabel;
+	protected int multiplicateur;
+	
+	public GUIText pourcentslabel;
+	protected float notesReussies;
+	protected float notesTotales;
 	
 	public TextAsset jsonFile;
 	
@@ -42,14 +46,16 @@ public class MainManager : MonoBehaviour
 		
 		this.pointsLabel.text = "Points: 0";
 		this.comboLabel.text = "Combo: 0";
-		this.multiplieurlabel.text = "Multiplieur: 1";
+		this.multiplicateurlabel.text = "Multiplicateur: 1";
+		this.pourcentslabel.text = "100%";
 		this.started = false;
 		this.countdownOver = false;
 		this.countdownLabel.text = countdown.ToString();	
 		this.beginning = Time.time;
 		points = 0;
 		combo = 0;
-		multipieur = 1;
+		multiplicateur = 1;
+		notesTotales = notesReussies = 0;
 		
 		initializeFromJSON();	
 		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
@@ -121,9 +127,24 @@ public class MainManager : MonoBehaviour
 		
 	}
 	
+	public void addNote(bool reussie)
+	{
+		notesTotales++;
+		if(reussie)
+		{
+			notesReussies++;
+			addCombo();
+			addPoints(100);
+		}
+		else
+			resetCombo();
+		int percent = (int)(notesReussies/notesTotales*100f);
+		this.pourcentslabel.text = percent+"%";
+	}
+	
 	public void addPoints(int points)
 	{
-		this.points += (points*multipieur);	
+		this.points += (points*multiplicateur);	
 		this.pointsLabel.text = "Points: "+this.points;
 	}
 	
@@ -144,14 +165,14 @@ public class MainManager : MonoBehaviour
 	protected void setMultiplieur()
 	{
 		if(combo < 10)
-			this.multipieur = 1;
+			this.multiplicateur = 1;
 		else if(combo < 30)
-			this.multipieur = 2;
+			this.multiplicateur = 2;
 		else if(combo < 50)
-			this.multipieur = 4;
+			this.multiplicateur = 4;
 		else
-			this.multipieur = 8;
-		this.multiplieurlabel.text = "Multiplieur: "+this.multipieur;
+			this.multiplicateur = 8;
+		this.multiplicateurlabel.text = "Multiplicateur: "+this.multiplicateur;
 	}
 	
 	
