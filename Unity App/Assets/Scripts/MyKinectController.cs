@@ -28,31 +28,31 @@ public class MyKinectController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//update all of the bones positions
-		if (sw.pollSkeleton ()) 
+		if(clavier)
 		{
-			if(clavier)
+			noteGauche = noteDroite = Note.Which.NONE;
+			if(Input.GetKey(KeyCode.LeftArrow))
+				noteGauche = Note.Which.A;
+			if(Input.GetKey(KeyCode.DownArrow))
 			{
-				noteGauche = noteDroite = Note.Which.NONE;
-				if(Input.GetKey(KeyCode.LeftArrow))
-					noteGauche = Note.Which.A;
-				if(Input.GetKey(KeyCode.DownArrow))
-				{
-					if(noteGauche == Note.Which.NONE)
-						noteGauche = Note.Which.B;
-					else
-						noteDroite = Note.Which.B;
-				}
-				if(Input.GetKey(KeyCode.RightArrow))
-				{
-					if(noteGauche == Note.Which.NONE)
-						noteGauche = Note.Which.C;
-					else
-						noteDroite = Note.Which.C;
-				}				
+				if(noteGauche == Note.Which.NONE)
+					noteGauche = Note.Which.B;
+				else
+					noteDroite = Note.Which.B;
 			}
-			else
+			if(Input.GetKey(KeyCode.RightArrow))
 			{
+				if(noteGauche == Note.Which.NONE)
+					noteGauche = Note.Which.C;
+				else
+					noteDroite = Note.Which.C;
+			}				
+		}
+		else
+		{
+			//update all of the bones positions
+			if (sw.pollSkeleton ()) 
+			{			
 				//Head management index=3
 				Head.transform.localPosition = new Vector3 (
 							sw.bonePos [0, 3].x * scale,
