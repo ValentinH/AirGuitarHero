@@ -1,9 +1,30 @@
+#song{
+    text-align: center;
+    width: 300px;
+    margin:auto;
+    margin-top:20px;
+}
+
 #pistes{
     width: 164px; 
-    margin:auto;
     border:3px solid #CCC; 
     border-radius: 3px;
-    margin-top:10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#time{ 
+    position: relative;
+    text-align: right;
+    display: inline-block;
+    margin:0px;
+    height:100%;
+    margin-right: -9px;
+    margin-top: -15px;
+}
+.time-item{
+    margin-bottom: 80px;
+    font-weight: bold;
 }
 
 .piste{ 
@@ -16,17 +37,16 @@
 }
 
 #pisteA{ border-right: 1px solid #AAA;}
-#pisteA .note{background-color: red;}
+#pisteA .note{background-color: #f6300a;}
 #pisteB{ border-right: 1px solid #AAA;}
-#pisteB .note{ background-color: blue;}
-#pisteC .note{ background-color: green;}
+#pisteB .note{ background-color: #f6ef2a;}
+#pisteC .note{ background-color: #0a62da;}
 
 .note{
     position:absolute; 
     left: 15px; 
     width:20px;
     min-height: 20px;
-    border: 1px solid #666;
     border-radius: 20px;
 }
 
@@ -38,16 +58,37 @@
     color: #fff;
     text-transform: uppercase;
     font-size: 20px;
+    z-index: 9999;
 }
 .view{
     display: inline-block;
-    width:32%; height:90%;
+    width:300px; height:300px;
+    border-radius: 300px;
     border:1px solid #ccc;
     background-color: #fff;
+    margin-top: 50px;
 }
-.activeA{background-color: red;}
-.activeB{background-color: blue;}
-.activeC{background-color: green;
+.activeA{background-color: #f6300a;}
+.activeB{background-color: #f6ef2a;}
+.activeC{background-color: #0a62da;
 }
 
+#save{margin-top: 6px;}
+
 input[type="file"] {display: inline-block;}
+
+#filename-content{
+    color: black;
+    position: relative;
+    top:3px;
+    display: inline-block;
+}
+#filename-content input{
+    text-align: right;
+    border-radius: 3px;
+}
+
+#filename-content span{
+    display: inherit;
+}
+
