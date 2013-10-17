@@ -19,11 +19,12 @@
     display: inline-block;
     margin:0px;
     height:100%;
-    margin-right: -9px;
+    margin-right: -166px;
     margin-top: -15px;
 }
 .time-item{
     margin-bottom: 80px;
+    line-height: 20px;
     font-weight: bold;
 }
 

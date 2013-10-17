@@ -200,7 +200,7 @@ function displayTime()
 	{
 		var d = new Date(i*1000)
 		var newTime = $("<div>", {class: "time-item"});
-		newTime.html(checkTime(d.getMinutes())+":"+checkTime(d.getSeconds())+" _");
+		newTime.html(checkTime(d.getMinutes())+":"+checkTime(d.getSeconds())+" ___________________________");
 		$("#time").append(newTime);
 	}
 }
