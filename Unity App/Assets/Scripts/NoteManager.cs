@@ -83,7 +83,8 @@ public class NoteManager : MonoBehaviour
 					{			
 						if(!this.soundPlayed)
 						{
-							audio.Play();
+							if(this.mainManager.fail_sound)
+								audio.Play();
 							this.soundPlayed = true;
 						}
 						
@@ -123,7 +124,8 @@ public class NoteManager : MonoBehaviour
 						this.missed = true;
 						setCurrentNoteColor(Color.red);
 						this.mainManager.addNote(false);
-						audio.Play();
+						if(this.mainManager.fail_sound)
+							audio.Play();
 					}
 					else
 						if(played && !missed)

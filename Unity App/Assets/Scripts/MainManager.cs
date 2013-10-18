@@ -14,6 +14,7 @@ public class MainManager : MonoBehaviour
 	public int countdown = 3;
 	public bool debug = false;
 	public float decalageMusique = 0.5f;
+	public bool fail_sound = true;
 	
 	public GUIText countdownLabel;
 	public GUITexture AreaA;

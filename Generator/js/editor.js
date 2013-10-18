@@ -9,6 +9,7 @@ var song;
 var fired1 = false;
 var fired2 = false;
 var fired3 = false;
+var player;
 
 $(function() 
 {
@@ -18,6 +19,8 @@ $(function()
 
 	if (window.File) 
 	{
+		player = document.getElementById('player');
+
 		$("#file").change(function(){
 			var file = this.files[0];
 			var textType = /text.*/;
@@ -32,6 +35,18 @@ $(function()
 				reader.readAsText(file);  
 			}
 		});
+		$("#songfile").change(function(){
+			var file = this.files[0];
+			var audioType = /audio.mp3/;
+			if (file.type.match(audioType)) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					player.src = e.target.result; 
+				}
+				reader.readAsDataURL(file);  
+			}
+		});
 	} 
 	else
 		alert('The File APIs are not fully supported in this browser.');
@@ -43,7 +58,12 @@ $(function()
 		recording = !recording;
 		d = new Date(); t = d.getTime();
 		if(recording)
-		{			
+		{
+			if(player.src != "")
+			{
+				player.currentTime = 0;
+				player.play();
+			}
 			song = new Song();
 			notes = [];
 			start = t;
@@ -56,6 +76,8 @@ $(function()
 		}
 		else
 		{
+			if(player.src != null)
+				player.pause();
 			displayNotes();
 			$("#feedback").hide();
 			$(this).text("Start a new song");
@@ -120,8 +142,8 @@ $(function()
 		// S
 		if(e.keyCode == 83)
 			$("#start").click();
-		}
-	});
+	}
+});
 });
 
 function addHandler(el)
@@ -131,14 +153,14 @@ function addHandler(el)
 		handles: "n, s",
 		containment: "parent",
 	});
-	$(el).on( "dragstop", function( event, ui ) {
-		setNoteTitle(el, ui.position.top, $(this).height());
+	$(el).off("dragstop").on( "dragstop", function( event, ui ) {
+		setNoteTitle(this, ui.position.top, $(this).height());
 	} );
-	$(el).on( "resizestop", function( event, ui ) {
-		setNoteTitle(el, ui.position.top, ui.size.height);
+	$(el).off("resizestop").on( "resizestop", function( event, ui ) {
+		setNoteTitle(this, ui.position.top, ui.size.height);
 	} );
 	$(el).draggable({ containment: "parent", axis: "y",  grid: [ 20,20 ]});
-	$(el).bind('contextmenu', function(e) {
+	$(el).off('contextmenu').on('contextmenu', function(e) {
 		$(this).remove();
 		return false;
 	});	
@@ -150,7 +172,9 @@ function setNoteTitle(el, start, length)
 }
 
 function displayNotes()
-{
+{	
+	cleanSong();
+	total_length = 0;
 	displayPiste(song.A, "A");
 	displayPiste(song.B, "B");
 	displayPiste(song.C, "C");
@@ -177,7 +201,7 @@ function displayPiste(p, which)
 		newNote.css({height: h, top: t});
 		$("#piste"+which).append(newNote);
 	}
-	$("#piste"+which).dblclick(function(event) {
+	$("#piste"+which).off('dblclick').dblclick(function(event) {
 		var h = 20;
 		var t = round(20, event.offsetY);
 		var newNote = $("<div>", {class: "note"});
@@ -226,14 +250,13 @@ function save()
 		song.C.push(new Note( $(this).position().top*10,  $(this).height()*10));
 	});
 
-	song.A.sort(SortByStart);
-	song.B.sort(SortByStart);
-	song.C.sort(SortByStart);
+	
+	cleanSong();
 
 	var json = JSON.stringify(song);
-	$("#output").append(json);
+	$("#output").html(json);
 	$('#myModal').modal();
-	}
+}
 
 function saveUnder()
 {
@@ -241,6 +264,27 @@ function saveUnder()
 	var text_filename = $("#filename")[0];
 	saveAs(new Blob([json], {type: "text/plain;charset=" + document.characterSet}),(text_filename.value || text_filename.placeholder) + ".txt");
 
+}
+
+function cleanSong(s)
+{	
+	cleanPiste(song.A);
+	cleanPiste(song.B);
+	cleanPiste(song.C);
+}
+function cleanPiste(p)
+{	
+	p.sort(SortByStart);
+	var temp = null;
+	for(var i=0; i<p.length; i++)
+	{
+		if(temp != null)
+		{
+			if(temp.start == p[i].start)
+				p.splice(i-1,1);
+		}
+		temp = p[i];
+	}
 }
 
 function Song() {

@@ -258,7 +258,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 155010542}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ca6d895ba931924f90d614ff752ab42, type: 3}
   m_Name: 
@@ -392,7 +392,7 @@ MonoBehaviour:
   RightHand: {fileID: 562279070}
   Head: {fileID: 71902481}
   scale: 1
-  clavier: 1
+  clavier: 0
   noteGauche: 0
   noteDroite: 0
 --- !u!1 &212732564
@@ -1595,8 +1595,9 @@ MonoBehaviour:
   timeAfterNote: .100000001
   timeBeforeNote: .100000001
   countdown: 3
-  debug: 1
+  debug: 0
   decalageMusique: 2.4000001
+  fail_sound: 0
   countdownLabel: {fileID: 1576030234}
   AreaA: {fileID: 212732565}
   AreaB: {fileID: 804618399}
@@ -1605,7 +1606,7 @@ MonoBehaviour:
   comboLabel: {fileID: 731637556}
   multiplicateurlabel: {fileID: 1124931969}
   pourcentslabel: {fileID: 360398969}
-  jsonFile: {fileID: 4900000, guid: c66f7328313dca94fa6b8088f29d189c, type: 3}
+  jsonFile: {fileID: 4900000, guid: f0cb99bbb27af9141960bb212cb87b3d, type: 3}
 --- !u!82 &1641963497
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1614,7 +1615,7 @@ AudioSource:
   m_GameObject: {fileID: 1641963490}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: b7760177a3b21254eb4eb1b0602b76c3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

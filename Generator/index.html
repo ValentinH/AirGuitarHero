@@ -21,8 +21,9 @@
     </header>
     <div class="container"> 
         <div class="row">
-            <button id="start" type="button" class="btn btn-primary">Start a new song</button> or open an existing one <input type="file" id="file" name="file"/>
+            Open an mp3  <input type="file" id="songfile" name="songfile"/> and <button id="start" type="button" class="btn btn-primary">Start a new song</button> or open an existing one <input type="file" id="file" name="file"/>
         </div>
+        <audio controls="controls" id="player" style="display:none;">Your browser does not support the audio element.</audio>
         <div id="song">
             <div id="time"></div>
             <div id="pistes">
