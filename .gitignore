@@ -1,12 +1,33 @@
-*.sln
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Obj/
+UnityGenerated/
+Library/
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
 *.userprefs
 *.csproj
 *.pidb
+*.suo
+*.sln
+*.user
 *.unityproj
+*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
 .DS_Store
-/Library/FailedAssetImports.txt
-/Library/cache/
-/Library/previews/
-/Library/ScriptAssemblies
-/obj
-/Temp
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
