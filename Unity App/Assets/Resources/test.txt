@@ -1,1 +1,0 @@
-{"A":[{"start":2000,"length":800},{"start":3000,"length":400}],"B":[{"start":1000,"length":1000},{"start":2400,"length":200},{"start":4600,"length":200},{"start":5000,"length":1000}],"C":[{"start":1000,"length":800},{"start":2200,"length":400},{"start":3600,"length":400}]}

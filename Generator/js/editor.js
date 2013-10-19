@@ -36,6 +36,7 @@ $(function()
 			}
 		});
 		$("#songfile").change(function(){
+			$("#start").attr("disabled", "disabled");
 			var file = this.files[0];
 			var audioType = /audio.mp3/;
 			if (file.type.match(audioType)) {
@@ -43,6 +44,10 @@ $(function()
 
 				reader.onload = function(e) {
 					player.src = e.target.result; 
+				}
+				reader.onloadend = function(e)
+				{
+					$("#start").attr("disabled", null);
 				}
 				reader.readAsDataURL(file);  
 			}
@@ -250,8 +255,8 @@ function save()
 		song.C.push(new Note( $(this).position().top*10,  $(this).height()*10));
 	});
 
-	
 	cleanSong();
+	setDirectStart();
 
 	var json = JSON.stringify(song);
 	$("#output").html(json);
@@ -264,6 +269,16 @@ function saveUnder()
 	var text_filename = $("#filename")[0];
 	saveAs(new Blob([json], {type: "text/plain;charset=" + document.characterSet}),(text_filename.value || text_filename.placeholder) + ".txt");
 
+}
+
+function setDirectStart()
+{
+	if(song.A.length > 0 && song.A[0].start < 3500)
+		song.direct_start = false;
+	if(song.B.length > 0 && song.B[0].start < 3500)
+		song.direct_start = false;
+	if(song.B.length > 0 && song.B[0].start < 3500)
+		song.direct_start = false;
 }
 
 function cleanSong(s)
@@ -291,6 +306,7 @@ function Song() {
 	this.A = [];
 	this.B = [];
 	this.C = [];
+	this.direct_start = true;
 }
 
 function Note(start, length) {

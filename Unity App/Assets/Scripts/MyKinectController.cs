@@ -11,8 +11,10 @@ public class MyKinectController : MonoBehaviour
 	public GameObject RightHand;
 	public GameObject Head;	
 	public float scale = 1.0f;
-	public bool clavier = false;
 	
+	
+	//référence du Main manager
+	protected MainManager mainManager;
 	
 	private GameObject[] _bones;
 	
@@ -22,13 +24,14 @@ public class MyKinectController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
 		noteGauche = noteDroite = Note.Which.NONE;		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(clavier)
+		if(mainManager.clavier)
 		{
 			noteGauche = noteDroite = Note.Which.NONE;
 			if(Input.GetKey(KeyCode.LeftArrow))
