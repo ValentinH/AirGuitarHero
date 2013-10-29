@@ -356,7 +356,7 @@ GameObject:
   - 4: {fileID: 196481115}
   - 114: {fileID: 196481116}
   m_Layer: 0
-  m_Name: Container
+  m_Name: Kinect Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +392,6 @@ MonoBehaviour:
   RightHand: {fileID: 562279070}
   Head: {fileID: 71902481}
   scale: 1
-  clavier: 0
   noteGauche: 0
   noteDroite: 0
 --- !u!1 &212732564
@@ -1590,14 +1589,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f4f3e60e523ea4d838ebe33077a8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clavier: 0
   timeToNote: 2
-  reflexTime: .100000001
+  reflexTime: .200000003
   timeAfterNote: .100000001
-  timeBeforeNote: .100000001
+  timeBeforeNote: .200000003
   countdown: 3
   debug: 0
   decalageMusique: 2.4000001
-  fail_sound: 0
+  fail_sound: 1
   countdownLabel: {fileID: 1576030234}
   AreaA: {fileID: 212732565}
   AreaB: {fileID: 804618399}
@@ -1606,7 +1606,7 @@ MonoBehaviour:
   comboLabel: {fileID: 731637556}
   multiplicateurlabel: {fileID: 1124931969}
   pourcentslabel: {fileID: 360398969}
-  jsonFile: {fileID: 4900000, guid: f0cb99bbb27af9141960bb212cb87b3d, type: 3}
+  jsonFile: {fileID: 4900000, guid: 9915965b07e54df4397f3688100255bb, type: 3}
 --- !u!82 &1641963497
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1615,7 +1615,7 @@ AudioSource:
   m_GameObject: {fileID: 1641963490}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c7f7affe9a394bf448cfb5378f83cade, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

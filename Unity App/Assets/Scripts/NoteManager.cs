@@ -11,7 +11,7 @@ public class NoteManager : MonoBehaviour
 	protected Note.Which piste;	
 	//liste des notes à jouer
 	protected ArrayList notesListe;	
-	//référenc du Main manager
+	//référence du Main manager
 	protected MainManager mainManager;	
 	//référence du Kinect controller
 	protected MyKinectController kinectController;	

@@ -7,13 +7,14 @@ using MiniJSON;
 public class MainManager : MonoBehaviour 
 {	
 	//PARAMETRES
+	public bool clavier = false;
 	public float timeToNote = 2f;
 	public float reflexTime = 0.1f;
 	public float timeAfterNote = 0.3f;
 	public float timeBeforeNote = 0.1f;
 	public int countdown = 3;
 	public bool debug = false;
-	public float decalageMusique = 0.5f;
+	public float decalageMusique = 2.4f;
 	public bool fail_sound = true;
 	
 	public GUIText countdownLabel;
@@ -39,12 +40,14 @@ public class MainManager : MonoBehaviour
 	protected float notesReussies;
 	protected float notesTotales;
 	
+	protected bool direct_start;
+	
 	public TextAsset jsonFile;
 	
 	// Use this for initialization
-	IEnumerator Start () 
+	void Start () 
 	{		
-		
+		this.direct_start = true;
 		this.pointsLabel.text = "Points: 0";
 		this.comboLabel.text = "Combo: 0";
 		this.multiplicateurlabel.text = "Multiplicateur: 1";
@@ -58,15 +61,15 @@ public class MainManager : MonoBehaviour
 		multiplicateur = 1;
 		notesTotales = notesReussies = 0;
 		
-		initializeFromJSON();	
-		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
-		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
-		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
-		
-		//decalage musique
-		yield return new WaitForSeconds(this.decalageMusique);
-		audio.Play();
-		
+		initializeFromJSON();
+		if(direct_start)
+		{
+			AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
+			AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
+			AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
+			
+			StartCoroutine("StartSong");
+		}
 	}
 	
 	// Update is called once per frame
@@ -77,6 +80,14 @@ public class MainManager : MonoBehaviour
 			if(this.countdownOver)
 			{
 				this.started = true;
+				if(!direct_start)
+				{
+					AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
+					AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
+					AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
+					
+					StartCoroutine("StartSong");
+				}
 			}
 			else
 			{//gestion du countdown
@@ -92,7 +103,14 @@ public class MainManager : MonoBehaviour
 				}
 			}
 			
-		}
+		}		
+	}
+	
+	private IEnumerator StartSong () 
+	{
+		//decalage musique
+		yield return new WaitForSeconds(this.decalageMusique);
+		audio.Play();
 	}
 	
 	private void initializeFromJSON()
@@ -124,7 +142,12 @@ public class MainManager : MonoBehaviour
 		notesC = new ArrayList();
 		foreach (IDictionary note in cc) {
 			notesC.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
-		} 		
+		} 	
+		
+		if(search.Contains("direct_start"))
+		{
+			direct_start = (bool) search["direct_start"];
+		}
 		
 	}
 	
