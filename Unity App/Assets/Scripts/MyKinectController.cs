@@ -18,14 +18,14 @@ public class MyKinectController : MonoBehaviour
 	
 	private GameObject[] _bones;
 	
-	public Note.Which noteGauche, noteDroite;
+	public Note.Which noteGauche, noteDroite, notePieds;
 	
 	
 	// Use this for initialization
 	void Start ()
 	{
 		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
-		noteGauche = noteDroite = Note.Which.NONE;		
+		noteGauche = noteDroite = notePieds = Note.Which.NONE;		
 	}
 	
 	// Update is called once per frame
@@ -33,7 +33,7 @@ public class MyKinectController : MonoBehaviour
 	{
 		if(mainManager.clavier)
 		{
-			noteGauche = noteDroite = Note.Which.NONE;
+			noteGauche = noteDroite = notePieds = Note.Which.NONE;
 			if(Input.GetKey(KeyCode.LeftArrow))
 				noteGauche = Note.Which.A;
 			if(Input.GetKey(KeyCode.DownArrow))
@@ -49,6 +49,10 @@ public class MyKinectController : MonoBehaviour
 					noteGauche = Note.Which.C;
 				else
 					noteDroite = Note.Which.C;
+			}	
+			if(Input.GetKey(KeyCode.Space))
+			{
+				notePieds = Note.Which.D;
 			}				
 		}
 		else

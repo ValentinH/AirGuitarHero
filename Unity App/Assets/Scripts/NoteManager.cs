@@ -62,7 +62,7 @@ public class NoteManager : MonoBehaviour
 		if(this.initialized)
 		{
 			//gestion de la note jouée par le joueur
-			if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
+			if(isNotePlayed())
 			{
 				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);	
 				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);	
@@ -76,7 +76,7 @@ public class NoteManager : MonoBehaviour
 			
 			if(!this.active)
 			{			
-				if((this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste))
+				if(isNotePlayed())
 				{
 					// si la note est jouée trop tot
 					if(getTime()< this.nextNoteTime - this.mainManager.timeBeforeNote && getTime() > this.previousNoteEnd + this.mainManager.timeAfterNote)
@@ -103,7 +103,7 @@ public class NoteManager : MonoBehaviour
 				// si la note est jouée à temps par le joueur	
 				if(getTime()-this.noteStart < this.mainManager.reflexTime)
 				{
-					if(this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste)
+					if(isNotePlayed())
 					{						
 						if(this.valide && !this.played)
 						{
@@ -130,7 +130,7 @@ public class NoteManager : MonoBehaviour
 					else
 						if(played && !missed)
 						{	
-							if(this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste)
+							if(isNotePlayed())
 							{
 								this.mainManager.addPoints(1);
 							}
@@ -143,6 +143,11 @@ public class NoteManager : MonoBehaviour
 				}
 			}
 		}
+	}
+	
+	protected bool isNotePlayed()
+	{
+		return (this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste || this.kinectController.notePieds == this.piste);
 	}
 	
 	protected void setCurrentNoteColor(Color c)

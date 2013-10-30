@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 135: {fileID: 13500000}
   m_Layer: 0
-  m_Name: NoteB
+  m_Name: NoteD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .300000012, y: .800000012, z: 42}
-  m_LocalScale: {x: 1, y: .200000003, z: 2}
+  m_LocalPosition: {x: .0590507425, y: -9.21103729e-17, z: 4.97793913}
+  m_LocalScale: {x: 6, y: .200000003, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!23 &2300000
@@ -43,7 +43,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: bccd2d77ae5554d44a05412bc3381a1a, type: 2}
+  - {fileID: 2100000, guid: 5f7b260a9fc4cb54f98a161ddde0848d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
