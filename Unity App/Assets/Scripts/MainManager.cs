@@ -36,6 +36,7 @@ public class MainManager : MonoBehaviour
 	
 	public GUIText multiplicateurlabel;
 	protected int multiplicateur;
+	protected bool bonusOn;
 	
 	public GUIText pourcentslabel;
 	protected float notesReussies;
@@ -44,6 +45,8 @@ public class MainManager : MonoBehaviour
 	protected bool direct_start;
 	
 	public TextAsset jsonFile;
+	
+	protected MyKinectController kinectController;
 	
 	// Use this for initialization
 	void Start () 
@@ -61,6 +64,9 @@ public class MainManager : MonoBehaviour
 		combo = 0;
 		multiplicateur = 1;
 		notesTotales = notesReussies = 0;
+		bonusOn = false;
+		
+		this.kinectController = (MyKinectController) FindObjectOfType(typeof(MyKinectController));
 		
 		initializeFromJSON();
 		if(direct_start)
@@ -92,7 +98,11 @@ public class MainManager : MonoBehaviour
 				}
 			}
 			
-		}		
+		}
+		if(this.kinectController.bonusActivated){
+			this.bonusOn = true;
+			setMultiplieur();
+		}
 	}
 	
 	private void StartPistes () 
@@ -188,6 +198,7 @@ public class MainManager : MonoBehaviour
 	
 	public void resetCombo()
 	{
+		this.bonusOn =false;
 		this.combo=0;	
 		this.comboLabel.text = "Combo: "+this.combo;
 		setMultiplieur();
@@ -203,6 +214,8 @@ public class MainManager : MonoBehaviour
 			this.multiplicateur = 4;
 		else
 			this.multiplicateur = 8;
+		if(this.multiplicateur > 1 && bonusOn)
+			this.multiplicateur = 16;
 		this.multiplicateurlabel.text = "Multiplicateur: "+this.multiplicateur;
 	}
 	

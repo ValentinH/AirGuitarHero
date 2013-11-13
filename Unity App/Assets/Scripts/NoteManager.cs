@@ -7,6 +7,8 @@ public class NoteManager : MonoBehaviour
 	public GameObject notePrefab;
 	public GameObject toucheObject;
 	
+	public GUIText debugLabel;
+	
 	//déterminant de la piste (A, B ou C)
 	protected Note.Which piste;	
 	//liste des notes à jouer
@@ -41,6 +43,7 @@ public class NoteManager : MonoBehaviour
 	
 	protected Color originalColor;
 	
+	
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
@@ -65,7 +68,7 @@ public class NoteManager : MonoBehaviour
 			if(isNotePlayed())
 			{
 				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);	
-				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);	
+				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);
 			}
 			else
 			{
@@ -89,7 +92,7 @@ public class NoteManager : MonoBehaviour
 						}
 						
 						this.valide = false;
-						this.mainManager.resetCombo();
+						this.mainManager.resetCombo();		
 					}
 				}
 				else
@@ -125,7 +128,7 @@ public class NoteManager : MonoBehaviour
 						setCurrentNoteColor(Color.red);
 						this.mainManager.addNote(false);
 						if(this.mainManager.fail_sound)
-							audio.Play();
+							audio.Play();			
 					}
 					else
 						if(played && !missed)
@@ -147,7 +150,7 @@ public class NoteManager : MonoBehaviour
 	
 	protected bool isNotePlayed()
 	{
-		return (this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste || this.kinectController.notePieds == this.piste);
+		return (this.kinectController.noteGauche == this.piste || this.kinectController.noteDroite == this.piste || this.kinectController.noteGenous == this.piste);
 	}
 	
 	protected void setCurrentNoteColor(Color c)

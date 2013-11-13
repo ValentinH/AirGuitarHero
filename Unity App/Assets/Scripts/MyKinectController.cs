@@ -10,7 +10,12 @@ public class MyKinectController : MonoBehaviour
 	public GameObject LeftHand;
 	public GameObject RightHand;
 	public GameObject Head;	
+	public GameObject LeftKnee;
+	public GameObject RightKnee;
 	public float scale = 1.0f;
+	
+	//debug label
+	public GUIText debugLabel;
 	
 	
 	//référence du Main manager
@@ -18,14 +23,16 @@ public class MyKinectController : MonoBehaviour
 	
 	private GameObject[] _bones;
 	
-	public Note.Which noteGauche, noteDroite, notePieds;
+	public Note.Which noteGauche, noteDroite, noteGenous;
+	public bool bonusActivated;
 	
 	
 	// Use this for initialization
 	void Start ()
 	{
 		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
-		noteGauche = noteDroite = notePieds = Note.Which.NONE;		
+		noteGauche = noteDroite = noteGenous = Note.Which.NONE;
+		bonusActivated = false;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +40,7 @@ public class MyKinectController : MonoBehaviour
 	{
 		if(mainManager.clavier)
 		{
-			noteGauche = noteDroite = notePieds = Note.Which.NONE;
+			noteGauche = noteDroite = noteGenous = Note.Which.NONE;
 			if(Input.GetKey(KeyCode.LeftArrow))
 				noteGauche = Note.Which.A;
 			if(Input.GetKey(KeyCode.DownArrow))
@@ -52,7 +59,13 @@ public class MyKinectController : MonoBehaviour
 			}	
 			if(Input.GetKey(KeyCode.Space))
 			{
-				notePieds = Note.Which.D;
+				noteGenous = Note.Which.D;
+			}
+			
+			bonusActivated = false;
+			if(Input.GetKey(KeyCode.LeftAlt))
+			{
+				bonusActivated = true;
 			}				
 		}
 		else
@@ -64,37 +77,50 @@ public class MyKinectController : MonoBehaviour
 				Head.transform.localPosition = new Vector3 (
 							sw.bonePos [0, 3].x * scale,
 							sw.bonePos [0, 3].y * scale,
-							LeftHand.transform.localPosition.z);			
+							sw.bonePos [0, 3].z * scale);			
 				
 				//LeftHand management index=7
 				LeftHand.transform.localPosition = new Vector3 (
 							sw.bonePos [0, 7].x * scale,
 							sw.bonePos [0, 7].y * scale,
-							LeftHand.transform.localPosition.z);			
+							sw.bonePos [0, 7].z * scale);			
 				
 				//RightHand management index=11
 				RightHand.transform.localPosition = new Vector3 (
 							sw.bonePos [0, 11].x * scale,
 							sw.bonePos [0, 11].y * scale,
-							LeftHand.transform.localPosition.z);
+							sw.bonePos [0, 11].z * scale); 
 				
-				Vector2 headPos = new Vector2 (Head.transform.localPosition.x, Head.transform.localPosition.y);
-				Vector2 leftPos = new Vector2 (LeftHand.transform.localPosition.x, LeftHand.transform.localPosition.y);
-				Vector2 rightPos = new Vector2 (RightHand.transform.localPosition.x, RightHand.transform.localPosition.y);
+				//LeftKnee management index=15
+				LeftKnee.transform.localPosition = new Vector3 (
+							sw.bonePos [0, 13].x * scale,
+							sw.bonePos [0, 13].y * scale,
+							sw.bonePos [0, 13].z * scale);
+				
+				
+				//RightKnee management index=19
+				RightKnee.transform.localPosition = new Vector3 (
+							sw.bonePos [0, 17].x * scale,
+							sw.bonePos [0, 17].y * scale,
+							sw.bonePos [0, 17].z * scale);
+				
 				
 				//détermination des notes
-				if(headPos != new Vector2(0,0))
+				if(!Head.transform.localPosition.Equals(new Vector3(0,0,0)))
 				{
-					noteGauche = getNote (headPos, leftPos);
-					noteDroite = getNote (headPos, rightPos);
+					noteGauche = getNote (Head.transform.localPosition, LeftHand.transform.localPosition);
+					noteDroite = getNote (Head.transform.localPosition, RightHand.transform.localPosition);
+					noteGenous = getNoteGenous(LeftKnee.transform.localPosition, RightKnee.transform.localPosition);
 				}
 				else
-					noteGauche = noteDroite = Note.Which.NONE;	
+					noteGauche = noteDroite = noteGenous = Note.Which.NONE;
+				
+				bonusActivated = checkBonus(Head.transform.localPosition, LeftHand.transform.localPosition, RightHand.transform.localPosition);
 			}
 		}
 	}
 	
-	private Note.Which getNote (Vector2 headPos, Vector2 handPos)
+	private Note.Which getNote (Vector3 headPos, Vector3 handPos)
 	{
 		if (handPos.y >= headPos.y) {
 			if (handPos.x > headPos.x + 0.25)
@@ -107,6 +133,30 @@ public class MyKinectController : MonoBehaviour
 			return Note.Which.B;
 		}	
 		return Note.Which.NONE;
+	}
+	
+	private Note.Which getNoteGenous (Vector3 leftPos, Vector3 rightPos)
+	{
+		float diff = leftPos.y - rightPos.y;
+		if(diff < 0) diff = -diff;
+		if (diff > 0.1) {
+					
+			debugLabel.text = "FEET PLAYED";
+			return Note.Which.D;
+		}	else			
+			debugLabel.text = "";
+		return Note.Which.NONE;
+	}
+	
+	private bool checkBonus (Vector3 head, Vector3 leftHand, Vector3 rightHand)
+	{
+		bool b = false;
+		if(rightHand.z - head.z > 0.5) b=true;
+		b= b && (rightHand.z - head.z > 0.5);
+		float diff = leftHand.x-rightHand.x;
+		if(diff < 0) diff = -diff;
+		b = b && diff<0.1;
+		return b;
 	}
 }
 
