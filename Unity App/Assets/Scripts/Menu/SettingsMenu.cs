@@ -6,9 +6,9 @@ public class SettingsMenu : MonoBehaviour {
 	
 	//Use the skin defined in the inspector
 	public GUISkin menuSkin;
-	public float x = 6;
-	public float y = 6;
-	public float z = 6;
+	public float x = 3.5f;
+	public float y = 3.5f;
+	public float z = 7;
 	
 	// Use this for initialization
 	void Start () {
@@ -29,8 +29,8 @@ public class SettingsMenu : MonoBehaviour {
 		GUI.skin = menuSkin;
 		
 		//Volume
-		GUI.Label (new Rect(width / 7, (float)(height / 3.5),(float)(width / 3.5), height / 8), "Volume");
-		volume = GUI.HorizontalSlider(new Rect(width / 7, (float)(height / 3.5),(float)(width / 3.5), height / 8), MusicManager.GetVolume(), (float)0.1, 1);
+		GUI.Label (new Rect(width / 4.3f, height / 3.77f, width / 3.5f, height / 8), "Volume");
+		volume = GUI.HorizontalSlider(new Rect(width / 7, (float)(height / 3),(float)(width / 3.5), height / 8), MusicManager.GetVolume(), (float)0.1, 1);
 		MusicManager.SetVolume (volume);
 		this.audio.volume = MusicManager.GetVolume();
 		
@@ -39,7 +39,7 @@ public class SettingsMenu : MonoBehaviour {
 			//Application.LoadLevel("MainMenu");
 		} //Credits
 		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.8),(float)(width / 3.5), height / 8),"Credits")){
-			//Application.LoadLevel("MainMenu");
+			Application.LoadLevel("Credits");
 		}//Back to main menu
 		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.44),(float)(width / 3.5), height / 8),"Menu")){
 			Application.LoadLevel("MainMenu");

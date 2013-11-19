@@ -50,7 +50,7 @@ public class MainManager : MonoBehaviour
 	
 	// Use this for initialization
 	void Start () 
-	{		
+	{	
 		this.direct_start = true;
 		this.pointsLabel.text = "Points: 0";
 		this.comboLabel.text = "Combo: 0";
@@ -76,6 +76,9 @@ public class MainManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		//Set Volume
+		this.audio.volume = MusicManager.GetVolume();
+		
 		if(!this.started)
 		{
 			if(this.countdownOver)

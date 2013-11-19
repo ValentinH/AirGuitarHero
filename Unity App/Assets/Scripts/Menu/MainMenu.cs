@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour {
 }
 
 public static class MusicManager {
-	private static float volume = 1;
+	private static float volume = 0.5f;
 	private static AudioClip music;
 	
 	public static void SetVolume(float v){
