@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour {
 			//SetingsMenu();
 		}
 		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.55),(float)(width / 3.5), height / 6),"EXIT")){
-			//Exit();
+			Application.Quit();
 		}
 		GUI.Label(new Rect(width / 7, (float)(height / 1.2),(float)(width / 1.5), height / 6), "Play and play it again !");
 		GUI.Box (new Rect(width / 10,height / 7, (float)(width / 2.6), (float)(height / 1.36)), "MENU");
