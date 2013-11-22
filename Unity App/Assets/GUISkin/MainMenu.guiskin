@@ -428,7 +428,7 @@ MonoBehaviour:
   m_horizontalSlider:
     m_Name: horizontalslider
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 97b050d43ac7c4d2b9f6cbb587650761, type: 3}
+      m_Background: {fileID: 2800000, guid: 8e3ff3e27ca4bc54dda56e89e0550dfa, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -469,8 +469,8 @@ MonoBehaviour:
     m_Overflow:
       m_Left: 0
       m_Right: 0
-      m_Top: -2
-      m_Bottom: -3
+      m_Top: -3
+      m_Bottom: 0
     m_Font: {fileID: 0}
     m_FontSize: 0
     m_FontStyle: 0
@@ -481,7 +481,7 @@ MonoBehaviour:
     m_ImagePosition: 2
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 0
-    m_FixedHeight: 12
+    m_FixedHeight: 14
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_horizontalSliderThumb:
@@ -539,9 +539,9 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 2
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 12
-    m_StretchWidth: 1
+    m_FixedWidth: 18
+    m_FixedHeight: 18
+    m_StretchWidth: 0
     m_StretchHeight: 0
   m_verticalSlider:
     m_Name: verticalslider
