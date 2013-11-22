@@ -12,9 +12,7 @@ public class LevelSelectionMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.audio.volume = MusicManager.GetVolume();
-		this.audio.clip = MusicManager.GetMusic();
-		this.audio.Play();
+		
 	}
 	
 	// Update is called once per frame

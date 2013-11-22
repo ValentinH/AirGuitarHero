@@ -6,17 +6,12 @@ public class MainMenu : MonoBehaviour {
 	
 	//Use the skin defined in the inspector
 	public GUISkin menuSkin;
-	public AudioClip sound;
 	public float x = 1;
 	public float y = 1;
 	public float z = 1;
 	
 	// Use this for initialization
 	void Start () {
-		this.audio.volume = MusicManager.GetVolume();
-		MusicManager.SetMusic(sound);
-		this.audio.clip = MusicManager.GetMusic();
-		this.audio.Play();
 	}
 	
 	// Update is called once per frame
@@ -44,23 +39,3 @@ public class MainMenu : MonoBehaviour {
 	}
 }
 
-public static class MusicManager {
-	private static float volume = 0.5f;
-	private static AudioClip music;
-	
-	public static void SetVolume(float v){
-		volume = v;
-	}
-	
-	public static float GetVolume(){
-		return volume;	
-	}
-	
-	public static void SetMusic(AudioClip m){
-		music = m;
-	}
-	
-	public static AudioClip GetMusic(){
-		return music;
-	}
-}

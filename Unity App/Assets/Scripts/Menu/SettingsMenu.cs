@@ -12,9 +12,6 @@ public class SettingsMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.audio.volume = MusicManager.GetVolume();
-		this.audio.clip = MusicManager.GetMusic();
-		this.audio.Play();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +29,6 @@ public class SettingsMenu : MonoBehaviour {
 		GUI.Label (new Rect(width / 4.3f, height / 3.77f, width / 3.5f, height / 8), "Volume");
 		volume = GUI.HorizontalSlider(new Rect(width / 7, (float)(height / 3),(float)(width / 3.5), height / 8), MusicManager.GetVolume(), (float)0.1, 1);
 		MusicManager.SetVolume (volume);
-		this.audio.volume = MusicManager.GetVolume();
 		
 		//Calibrage
 		if(GUI.Button(new Rect(width / 7, (float)(height / 2.38),(float)(width / 3.5), height / 8),"Calibrate")){

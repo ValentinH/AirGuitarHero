@@ -12,9 +12,6 @@ public class Credits : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.audio.volume = MusicManager.GetVolume();
-		this.audio.clip = MusicManager.GetMusic();
-		this.audio.Play();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +27,7 @@ public class Credits : MonoBehaviour {
 		//Volume
 		GUI.Label (new Rect(width / x, height / y, width / 3.5f, height / 8), "UTC");
 	
-		GUI.TextArea(new Rect(width / 7, height / 3.77f, width / 3.5f, height / 2.48f), "Developped by Valentin Hervieu and Vincent Meyer for the University of Technologie of Compiègne");
+		GUI.TextArea(new Rect(width / 7, height / 3.77f, width / 3.5f, height / 2.48f), "Developed by Valentin Hervieu and Vincent Meyer for the University of Technologie of Compiègne");
 		
 		//Back to settings
 		if(GUI.Button(new Rect(width / 7, (float)(height / 1.44),(float)(width / 3.5), height / 8),"Back")){

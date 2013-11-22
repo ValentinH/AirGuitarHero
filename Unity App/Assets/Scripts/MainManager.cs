@@ -45,12 +45,14 @@ public class MainManager : MonoBehaviour
 	protected bool direct_start;
 	
 	public TextAsset jsonFile;
+	public AudioClip music;
 	
 	protected MyKinectController kinectController;
 	
 	// Use this for initialization
 	void Start () 
 	{	
+		MusicManager.StopMusic();
 		this.direct_start = true;
 		this.pointsLabel.text = "Points: 0";
 		this.comboLabel.text = "Combo: 0";
@@ -77,7 +79,7 @@ public class MainManager : MonoBehaviour
 	void Update () 
 	{
 		//Set Volume
-		this.audio.volume = MusicManager.GetVolume();
+		//this.audio.volume = MusicManager.GetVolume();
 		
 		if(!this.started)
 		{
@@ -122,7 +124,7 @@ public class MainManager : MonoBehaviour
 	{
 		//decalage musique
 		yield return new WaitForSeconds(this.decalageMusique);
-		audio.Play();
+		MusicManager.SetMusic(music);
 	}
 	
 	private void initializeFromJSON()
