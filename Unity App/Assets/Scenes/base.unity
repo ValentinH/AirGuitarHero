@@ -2136,12 +2136,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clavier: 1
   timeToNote: 2
-  reflexTime: .300000012
-  timeAfterNote: .300000012
-  timeBeforeNote: .300000012
+  reflexTime: .100000001
+  timeAfterNote: .100000001
+  timeBeforeNote: .100000001
   countdown: 3
   debug: 1
-  decalageMusique: .400000006
+  decalageMusique: .5
   fail_sound: 1
   countdownLabel: {fileID: 1576030234}
   AreaA: {fileID: 212732565}
