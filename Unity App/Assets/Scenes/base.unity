@@ -2140,9 +2140,9 @@ MonoBehaviour:
   timeAfterNote: .300000012
   timeBeforeNote: .300000012
   countdown: 3
-  debug: 0
-  decalageMusique: 2.4000001
-  fail_sound: 0
+  debug: 1
+  decalageMusique: .400000006
+  fail_sound: 1
   countdownLabel: {fileID: 1576030234}
   AreaA: {fileID: 212732565}
   AreaB: {fileID: 804618399}

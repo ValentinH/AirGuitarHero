@@ -14,7 +14,7 @@ public class MainManager : MonoBehaviour
 	public float timeBeforeNote = 0.1f;
 	public int countdown = 3;
 	public bool debug = false;
-	public float decalageMusique = 2.4f;
+	public float decalageMusique = 0.4f;
 	public bool fail_sound = true;
 	
 	public GUIText countdownLabel;
@@ -122,9 +122,9 @@ public class MainManager : MonoBehaviour
 	
 	private IEnumerator StartSong () 
 	{
-		//decalage musique
-		yield return new WaitForSeconds(this.decalageMusique);
-		MusicManager.SetMusic(music);
+		//decalage musique		
+		yield return new WaitForSeconds(this.timeToNote + this.decalageMusique);
+		MusicManager.SetMusic(music);	
 	}
 	
 	private void initializeFromJSON()

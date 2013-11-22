@@ -164,7 +164,7 @@ public class NoteManager : MonoBehaviour
 	}
 	
 	public void init(ArrayList liste, Note.Which piste)
-	{
+	{		
 		this.piste = piste;
 		this.notesListe = liste;
 		this.beginning = Time.timeSinceLevelLoad;
@@ -184,7 +184,7 @@ public class NoteManager : MonoBehaviour
     }
 	
 	IEnumerator playNote(float start, float length) 
-	{
+	{		
 		//gestion du temps de validité de la note (avant de pouvoir la jouer)
 		this.previousNoteEnd = getTime();
 		this.nextNoteTime = this.mainManager.timeToNote + start;
@@ -227,7 +227,7 @@ public class NoteManager : MonoBehaviour
 	{		
 		//attente avant de jouer la prochaine note
 		yield return new WaitForSeconds(start-getTime());
-				
+		
 		//on calcule la longueur de la note et son decalage de position pour que le bord inferieur soit au début de la piste
 		float z =  1f * (length/0.2f);
 		notePrefab.transform.localScale = new Vector3(notePrefab.transform.localScale.x, notePrefab.transform.localScale.y, 1f * (length/0.2f));
