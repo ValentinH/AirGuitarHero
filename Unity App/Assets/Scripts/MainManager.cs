@@ -219,7 +219,7 @@ public class MainManager : MonoBehaviour
 			this.multiplicateur = 4;
 		else
 			this.multiplicateur = 8;
-		if(this.multiplicateur > 1 && bonusOn)
+		if(this.multiplicateur > 2 && bonusOn)
 			this.multiplicateur = 16;
 		this.multiplicateurlabel.text = "Multiplicateur: "+this.multiplicateur;
 	}

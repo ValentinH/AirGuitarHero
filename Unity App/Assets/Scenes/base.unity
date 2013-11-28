@@ -746,7 +746,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 360398967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.17538977, y: .0199999996, z: -5.55000019}
+  m_LocalPosition: {x: 3.05999994, y: .0199999809, z: -5.55000019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386488901}
@@ -1218,7 +1218,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 603410612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.17538977, y: .109999955, z: -5.55000019}
+  m_LocalPosition: {x: 3.05999994, y: .109999955, z: -5.55000019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386488901}
@@ -2134,13 +2134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f4f3e60e523ea4d838ebe33077a8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clavier: 1
+  clavier: 0
   timeToNote: 2
-  reflexTime: .100000001
-  timeAfterNote: .100000001
-  timeBeforeNote: .100000001
+  reflexTime: .300000012
+  timeAfterNote: .300000012
+  timeBeforeNote: .300000012
   countdown: 3
-  debug: 1
+  debug: 0
   decalageMusique: .5
   fail_sound: 1
   countdownLabel: {fileID: 1576030234}
