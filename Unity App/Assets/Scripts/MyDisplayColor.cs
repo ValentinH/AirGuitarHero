@@ -12,8 +12,8 @@ public class MyDisplayColor : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		kinect = devOrEmu.getKinect();
-		//tex = new Texture2D(640,480,TextureFormat.ARGB32,false);
-		tex = new Texture2D(320,240,TextureFormat.ARGB32,false);
+		tex = new Texture2D(640,480,TextureFormat.ARGB32,false);
+		//tex = new Texture2D(320,240,TextureFormat.ARGB32,false);
 		renderer.material.mainTexture = tex;
 		
 	}
@@ -22,8 +22,8 @@ public class MyDisplayColor : MonoBehaviour {
 	void Update () {
 		if (kinect.pollColor())
 		{
-			//tex.SetPixels32(kinect.getColor());
-			tex.SetPixels32(mipmapImg(kinect.getColor(),640,480));
+			tex.SetPixels32(kinect.getColor());
+			//tex.SetPixels32(mipmapImg(kinect.getColor(),640,480));
 			tex.Apply(false);
 		}
 	}

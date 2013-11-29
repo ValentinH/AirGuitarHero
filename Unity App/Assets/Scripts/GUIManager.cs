@@ -24,10 +24,11 @@ public class GUIManager : MonoBehaviour
 		instance.pointsLabel.text = "Points: 0";
 		instance.pourcentslabel.text = "100%";
 		instance.debugLabel.enabled = false;
+		
+		//feedback management (adjust to screen)
 		instance.screen = GameObject.Find("Screen");
 		instance.screen.transform.position = new Vector3(0, -0.0475f*Screen.height, 0.05f*Screen.height);
 		instance.screen.transform.localScale = new Vector3(Screen.width/100f, 1, Screen.height/100f);
-		SetDebug(Screen.width+" "+Screen.height);
     }
 	
 	public static void SetTime(float current, float total)
