@@ -87,7 +87,7 @@ public class NoteManager : MonoBehaviour
 						if(!this.soundPlayed)
 						{
 							if(this.mainManager.fail_sound)
-								audio.Play();
+								MusicManager.PlayFail();
 							this.soundPlayed = true;
 						}
 						
@@ -128,7 +128,7 @@ public class NoteManager : MonoBehaviour
 						setCurrentNoteColor(Color.red);
 						this.mainManager.addNote(false);
 						if(this.mainManager.fail_sound)
-							audio.Play();			
+							MusicManager.PlayFail();	
 					}
 					else
 						if(played && !missed)
