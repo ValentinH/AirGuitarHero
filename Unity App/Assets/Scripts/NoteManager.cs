@@ -7,8 +7,6 @@ public class NoteManager : MonoBehaviour
 	public GameObject notePrefab;
 	public GameObject toucheObject;
 	
-	public GUIText debugLabel;
-	
 	//déterminant de la piste (A, B ou C)
 	protected Note.Which piste;	
 	//liste des notes à jouer

@@ -63,6 +63,9 @@ public class MusicManager : MonoBehaviour
 	public static void StopMusic(){
 		instance.mainAudio.Stop();
 	}
+	public static float GetMusicLength(){
+		return instance.mainAudio.clip.length;
+	}
 	
 	public static AudioClip GetMusic(){
 		return music;

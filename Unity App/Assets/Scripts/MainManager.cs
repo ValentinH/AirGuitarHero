@@ -17,7 +17,6 @@ public class MainManager : MonoBehaviour
 	public float decalageMusique = 0.4f;
 	public bool fail_sound = true;
 	
-	public GUIText countdownLabel;
 	public GUITexture AreaA;
 	public GUITexture AreaB;
 	public GUITexture AreaC;
@@ -27,18 +26,16 @@ public class MainManager : MonoBehaviour
 	protected bool started;
 	protected bool countdownOver;
 	protected float beginning;	
+	protected float beginning_song;	
+	protected float song_length;	
 	
-	public GUIText pointsLabel;
 	protected int points;
 	
-	public GUIText comboLabel;
 	protected int combo;
 	
-	public GUIText multiplicateurlabel;
 	protected int multiplicateur;
 	protected bool bonusOn;
 	
-	public GUIText pourcentslabel;
 	protected float notesReussies;
 	protected float notesTotales;
 	
@@ -54,14 +51,10 @@ public class MainManager : MonoBehaviour
 	{	
 		MusicManager.StopMusic();
 		this.direct_start = true;
-		this.pointsLabel.text = "Points: 0";
-		this.comboLabel.text = "Combo: 0";
-		this.multiplicateurlabel.text = "Multiplicateur: 1";
-		this.pourcentslabel.text = "100%";
 		this.started = false;
 		this.countdownOver = false;
-		this.countdownLabel.text = countdown.ToString();	
 		this.beginning = Time.time;
+		this.beginning_song = 0;
 		points = 0;
 		combo = 0;
 		multiplicateur = 1;
@@ -77,10 +70,7 @@ public class MainManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
-		//Set Volume
-		//this.audio.volume = MusicManager.GetVolume();
-		
+	{		
 		if(!this.started)
 		{
 			if(this.countdownOver)
@@ -93,17 +83,19 @@ public class MainManager : MonoBehaviour
 			{//gestion du countdown
 				if((Time.time-this.beginning) > countdown)
 				{
-					countdownLabel.enabled = false;	
+					GUIManager.SetCountdown(false);
 					this.countdownOver = true;
 				}
 				else
 				{
-					int val =  countdown - (int)(Time.time-this.beginning);
-					this.countdownLabel.text = val.ToString();
+					GUIManager.SetCountdown(countdown - (int)(Time.time-this.beginning));
 				}
 			}
 			
 		}
+		if(this.beginning_song != 0)
+			GUIManager.SetTime(Time.time - this.beginning_song, this.song_length);
+		
 		if(this.kinectController.bonusActivated){
 			this.bonusOn = true;
 			setMultiplieur();
@@ -124,7 +116,9 @@ public class MainManager : MonoBehaviour
 	{
 		//decalage musique		
 		yield return new WaitForSeconds(this.timeToNote + this.decalageMusique);
-		MusicManager.SetMusic(music);	
+		MusicManager.SetMusic(music);
+		beginning_song = Time.time;
+		song_length = MusicManager.GetMusicLength();
 	}
 	
 	private void initializeFromJSON()
@@ -184,20 +178,19 @@ public class MainManager : MonoBehaviour
 		}
 		else
 			resetCombo();
-		int percent = (int)(notesReussies/notesTotales*100f);
-		this.pourcentslabel.text = percent+"%";
+		GUIManager.SetPourcentage((int)(notesReussies/notesTotales*100f));
 	}
 	
 	public void addPoints(int points)
 	{
-		this.points += (points*multiplicateur);	
-		this.pointsLabel.text = "Points: "+this.points;
+		this.points += (points*multiplicateur);		
+		GUIManager.SetPoints(this.points);
 	}
 	
 	public void addCombo()
 	{
 		this.combo++;	
-		this.comboLabel.text = "Combo: "+this.combo;
+		GUIManager.SetCombo(this.combo);
 		setMultiplieur();
 	}
 	
@@ -205,7 +198,7 @@ public class MainManager : MonoBehaviour
 	{
 		this.bonusOn =false;
 		this.combo=0;	
-		this.comboLabel.text = "Combo: "+this.combo;
+		GUIManager.SetCombo(this.combo);
 		setMultiplieur();
 	}
 	
@@ -221,7 +214,7 @@ public class MainManager : MonoBehaviour
 			this.multiplicateur = 8;
 		if(this.multiplicateur > 2 && bonusOn)
 			this.multiplicateur = 16;
-		this.multiplicateurlabel.text = "Multiplicateur: "+this.multiplicateur;
+		GUIManager.SetMultiplicateur(this.multiplicateur);
 	}
 	
 	

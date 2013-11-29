@@ -14,9 +14,6 @@ public class MyKinectController : MonoBehaviour
 	public GameObject RightKnee;
 	public float scale = 1.0f;
 	
-	//debug label
-	public GUIText debugLabel;
-	
 	
 	//référence du Main manager
 	protected MainManager mainManager;
@@ -141,10 +138,8 @@ public class MyKinectController : MonoBehaviour
 		if(diff < 0) diff = -diff;
 		if (diff > 0.1) {
 					
-			debugLabel.text = "FEET PLAYED";
 			return Note.Which.D;
-		}	else			
-			debugLabel.text = "";
+		}
 		return Note.Which.NONE;
 	}
 	
