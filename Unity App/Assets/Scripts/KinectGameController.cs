@@ -4,7 +4,7 @@ using System.Collections;
 using System.IO;
 using MiniJSON;
 
-public class MyKinectController : MonoBehaviour
+public class KinectGameController : MonoBehaviour
 {
 	public SkeletonWrapper sw;
 	public GameObject LeftHand;

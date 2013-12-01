@@ -44,7 +44,7 @@ public class MainManager : MonoBehaviour
 	public TextAsset jsonFile;
 	public AudioClip music;
 	
-	protected MyKinectController kinectController;
+	protected KinectGameController kinectController;
 	
 	// Use this for initialization
 	void Start () 
@@ -61,7 +61,7 @@ public class MainManager : MonoBehaviour
 		notesTotales = notesReussies = 0;
 		bonusOn = false;
 		
-		this.kinectController = (MyKinectController) FindObjectOfType(typeof(MyKinectController));
+		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
 		
 		initializeFromJSON();
 		if(direct_start)

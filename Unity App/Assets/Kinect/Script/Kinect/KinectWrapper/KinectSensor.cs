@@ -88,11 +88,7 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 	
 	void Awake()
 	{
-		if (KinectSensor.instance != null)
-		{
-			Debug.Log("There should be only one active instance of the KinectSensor component at at time.");
-            throw new Exception("There should be only one active instance of the KinectSensor component at a time.");
-		}
+		
 		try
 		{
 			// The MSR Kinect DLL (native code) is going to load into the Unity process and stay resident even between debug runs of the game.  
@@ -102,7 +98,7 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
             // hasn't been initialized yet.  So calling this first puts us in a good state on a first or second run.
 			// However, calling NuiShutdown before starting prevents the image streams from being read, so if you want to use image data
 			// (either depth or RGB), comment this line out.
-			//NuiShutdown();
+			//NativeMethods.NuiShutdown();
 			
 			int hr = NativeMethods.NuiInitialize(NuiInitializeFlags.UsesDepthAndPlayerIndex | NuiInitializeFlags.UsesSkeleton | NuiInitializeFlags.UsesColor);
             if (hr != 0)

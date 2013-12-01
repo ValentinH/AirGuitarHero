@@ -14,7 +14,7 @@ public class NoteManager : MonoBehaviour
 	//référence du Main manager
 	protected MainManager mainManager;	
 	//référence du Kinect controller
-	protected MyKinectController kinectController;	
+	protected KinectGameController kinectController;	
 	//temps du lancement de la piste
 	protected float beginning;	
 	//si la piste à commencer
@@ -45,7 +45,7 @@ public class NoteManager : MonoBehaviour
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
-		this.kinectController = (MyKinectController) FindObjectOfType(typeof(MyKinectController));
+		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
 		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
 		this.beginning = 0;
 		this.initialized = false;
