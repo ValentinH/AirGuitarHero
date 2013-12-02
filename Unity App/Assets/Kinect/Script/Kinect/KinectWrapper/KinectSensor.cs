@@ -87,8 +87,7 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 	
 	
 	void Awake()
-	{
-		
+	{		
 		try
 		{
 			// The MSR Kinect DLL (native code) is going to load into the Unity process and stay resident even between debug runs of the game.  

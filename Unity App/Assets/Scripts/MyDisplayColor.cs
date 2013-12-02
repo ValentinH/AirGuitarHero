@@ -4,18 +4,19 @@ using System.Collections;
 [RequireComponent(typeof(Renderer))]
 public class MyDisplayColor : MonoBehaviour {
 	
-	public DeviceOrEmulator devOrEmu;
+	protected DeviceOrEmulator devOrEmu;
 	private Kinect.KinectInterface kinect;
 	
 	private Texture2D tex;
 	
 	// Use this for initialization
 	void Start () {
+		devOrEmu = (DeviceOrEmulator) FindObjectOfType(typeof(DeviceOrEmulator));
+		
 		kinect = devOrEmu.getKinect();
 		//tex = new Texture2D(640,480,TextureFormat.ARGB32,false);
 		tex = new Texture2D(320,240,TextureFormat.ARGB32,false);
-		renderer.material.mainTexture = tex;
-		
+		renderer.material.mainTexture = tex;		
 	}
 	
 	// Update is called once per frame

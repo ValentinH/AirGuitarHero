@@ -5,17 +5,26 @@ using System.IO;
 using MiniJSON;
 
 public class KinectMenuController : MonoBehaviour
-{
-	public SkeletonWrapper sw;
+{	
+	public GameObject KinectPrefab;
+	
+	protected SkeletonWrapper sw;
 	public GUITexture cursor;
+	public GUIText debug;
 	
 	private GameObject[] _bones;
 	
-	
+	private Vector3 rightHand;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
+		if(sw == null)
+		{
+			Instantiate(KinectPrefab);
+			sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
+		}
 	}
 	
 	// Update is called once per frame
@@ -25,20 +34,26 @@ public class KinectMenuController : MonoBehaviour
 		if (sw.pollSkeleton ()) 
 		{			
 			//Head management index=3
-			Vector2 headPos = new Vector2 (sw.bonePos [0, 3].x, sw.bonePos [0, 3].y);			
+			Vector3 headPos = new Vector3 (sw.bonePos [0, 3].x, sw.bonePos [0, 3].y, sw.bonePos [0, 3].z);			
 			
 			//LeftHand management index=7
-			Vector2 leftPos = new Vector2 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y);			
+			Vector3 leftPos = new Vector3 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y,	sw.bonePos [0, 7].z);			
 			
 			//RightHand management index=11
-			Vector2 rightPos = new Vector3 (sw.bonePos [0, 11].x,sw.bonePos [0, 11].y); 
+			Vector3 rightPos = new Vector3 (sw.bonePos [0, 11].x, sw.bonePos [0, 11].y, sw.bonePos [0, 11].z); 
 			
 			
-			float x = 0.5f + rightPos.x;
-			float y = 0.5f + rightPos.y;			
-			cursor.transform.position = new Vector3(x, y, cursor.transform.position.z);						
+			float x = (headPos.x + rightPos.x )+ 0.5f;
+			float y =  1 - (headPos.y - rightPos.y);			
+			cursor.transform.position = new Vector3(x, y, cursor.transform.position.z);
+			rightHand = new Vector3(x, y, rightPos.z - headPos.z);
 		}
 		
+	}
+	
+	public Vector3 getRightHand()
+	{
+		return rightHand;	
 	}
 }
 

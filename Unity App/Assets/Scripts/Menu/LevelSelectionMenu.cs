@@ -26,7 +26,7 @@ public class LevelSelectionMenu : MonoBehaviour {
 		GUI.skin = menuSkin;
 		
 		if(GUI.Button(new Rect(width / 7, (float)(height / 3.5),(float)(width / 3.5), height / 8), "LEVEL 1")){
-			Application.LoadLevel("base");
+			Application.LoadLevel("Game");
 		}
 		else if(GUI.Button(new Rect(width / 7, (float)(height / 2.38),(float)(width / 3.5), height / 8),"LEVEL 2")){
 			//Application.LoadLevel("MainMenu");

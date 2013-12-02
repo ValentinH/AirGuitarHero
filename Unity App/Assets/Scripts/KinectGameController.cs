@@ -6,14 +6,8 @@ using MiniJSON;
 
 public class KinectGameController : MonoBehaviour
 {
-	public SkeletonWrapper sw;
-	public GameObject LeftHand;
-	public GameObject RightHand;
-	public GameObject Head;	
-	public GameObject LeftKnee;
-	public GameObject RightKnee;
-	public float scale = 1.0f;
-	
+	public GameObject KinectPrefab;
+	protected SkeletonWrapper sw;	
 	
 	//référence du Main manager
 	protected MainManager mainManager;
@@ -23,10 +17,19 @@ public class KinectGameController : MonoBehaviour
 	public Note.Which noteGauche, noteDroite, noteGenous;
 	public bool bonusActivated;
 	
+	protected Vector3 headPos, leftHand, rightHand, leftKnee, rightKnee;
+	
 	
 	// Use this for initialization
 	void Start ()
 	{
+		sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
+		if(sw == null)
+		{
+			Instantiate(KinectPrefab);
+			sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
+		}
+		
 		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
 		noteGauche = noteDroite = noteGenous = Note.Which.NONE;
 		bonusActivated = false;
@@ -71,53 +74,53 @@ public class KinectGameController : MonoBehaviour
 			if (sw.pollSkeleton ()) 
 			{			
 				//Head management index=3
-				Head.transform.localPosition = new Vector3 (
-							sw.bonePos [0, 3].x * scale,
-							sw.bonePos [0, 3].y * scale,
-							sw.bonePos [0, 3].z * scale);			
+				headPos = new Vector3 (
+							sw.bonePos [0, 3].x,
+							sw.bonePos [0, 3].y,
+							sw.bonePos [0, 3].z);			
 				
 				//LeftHand management index=7
-				LeftHand.transform.localPosition = new Vector3 (
-							sw.bonePos [0, 7].x * scale,
-							sw.bonePos [0, 7].y * scale,
-							sw.bonePos [0, 7].z * scale);			
+				leftHand = new Vector3 (
+							sw.bonePos [0, 7].x,
+							sw.bonePos [0, 7].y,
+							sw.bonePos [0, 7].z);			
 				
 				//RightHand management index=11
-				RightHand.transform.localPosition = new Vector3 (
-							sw.bonePos [0, 11].x * scale,
-							sw.bonePos [0, 11].y * scale,
-							sw.bonePos [0, 11].z * scale); 
+				rightHand = new Vector3 (
+							sw.bonePos [0, 11].x,
+							sw.bonePos [0, 11].y,
+							sw.bonePos [0, 11].z); 
 				
 				//LeftKnee management index=15
-				LeftKnee.transform.localPosition = new Vector3 (
-							sw.bonePos [0, 13].x * scale,
-							sw.bonePos [0, 13].y * scale,
-							sw.bonePos [0, 13].z * scale);
+				leftKnee = new Vector3 (
+							sw.bonePos [0, 13].x,
+							sw.bonePos [0, 13].y,
+							sw.bonePos [0, 13].z);
 				
 				
 				//RightKnee management index=19
-				RightKnee.transform.localPosition = new Vector3 (
-							sw.bonePos [0, 17].x * scale,
-							sw.bonePos [0, 17].y * scale,
-							sw.bonePos [0, 17].z * scale);
+				rightKnee = new Vector3 (
+							sw.bonePos [0, 17].x,
+							sw.bonePos [0, 17].y,
+							sw.bonePos [0, 17].z);
 				
 				
 				//détermination des notes
-				if(!Head.transform.localPosition.Equals(new Vector3(0,0,0)))
+				if(!headPos.Equals(new Vector3(0,0,0)))
 				{
-					noteGauche = getNote (Head.transform.localPosition, LeftHand.transform.localPosition);
-					noteDroite = getNote (Head.transform.localPosition, RightHand.transform.localPosition);
-					noteGenous = getNoteGenous(LeftKnee.transform.localPosition, RightKnee.transform.localPosition);
+					noteGauche = getNote (leftHand);
+					noteDroite = getNote (rightHand);
+					noteGenous = getNoteGenous();
 				}
 				else
 					noteGauche = noteDroite = noteGenous = Note.Which.NONE;
 				
-				bonusActivated = checkBonus(Head.transform.localPosition, LeftHand.transform.localPosition, RightHand.transform.localPosition);
+				bonusActivated = checkBonus();
 			}
 		}
 	}
 	
-	private Note.Which getNote (Vector3 headPos, Vector3 handPos)
+	private Note.Which getNote (Vector3 handPos)
 	{
 		if (handPos.y >= headPos.y) {
 			if (handPos.x > headPos.x + 0.25)
@@ -132,9 +135,9 @@ public class KinectGameController : MonoBehaviour
 		return Note.Which.NONE;
 	}
 	
-	private Note.Which getNoteGenous (Vector3 leftPos, Vector3 rightPos)
+	private Note.Which getNoteGenous ()
 	{
-		float diff = leftPos.y - rightPos.y;
+		float diff = leftKnee.y - rightKnee.y;
 		if(diff < 0) diff = -diff;
 		if (diff > 0.1) {
 					
@@ -143,11 +146,11 @@ public class KinectGameController : MonoBehaviour
 		return Note.Which.NONE;
 	}
 	
-	private bool checkBonus (Vector3 head, Vector3 leftHand, Vector3 rightHand)
+	private bool checkBonus ()
 	{
 		bool b = false;
-		if(rightHand.z - head.z > 0.5) b=true;
-		b= b && (rightHand.z - head.z > 0.5);
+		if(rightHand.z - headPos.z > 0.5) b=true;
+		b= b && (rightHand.z - headPos.z > 0.5);
 		float diff = leftHand.x-rightHand.x;
 		if(diff < 0) diff = -diff;
 		b = b && diff<0.1;
