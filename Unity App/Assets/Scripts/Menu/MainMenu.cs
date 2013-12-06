@@ -8,11 +8,15 @@ public class MainMenu : MenuBase {
 	protected Rect settingsRect;
 	protected Rect exitRect;
 	
+	public AudioClip music;
 	
 	// Use this for initialization
-	new void Start () {	
+	new void Start () {		
 		base.Start();
 		
+		MusicManager.StopMusic();
+		MusicManager.SetMusic(music);
+		MusicManager.PlayMusic();
 		playRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 3.5),(float)(this.screenWidth / 3.5), this.screenHeight / 6);
 		settingsRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 2.14),(float)(this.screenWidth / 3.5), this.screenHeight / 6);
 		exitRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.55),(float)(this.screenWidth / 3.5), this.screenHeight / 6);

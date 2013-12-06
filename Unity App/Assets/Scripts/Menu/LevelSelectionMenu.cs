@@ -55,13 +55,19 @@ public class LevelSelectionMenu : MenuBase {
 		GUI.skin = menuSkin;
 		
 		if(GUI.Button(l1Rect, "LEVEL 1")){
-			Application.LoadLevel("Game");
+			Hashtable h = new Hashtable();
+			h.Add("level", 1);
+			SceneManager.LoadScene("Game", h);
 		}
 		else if(GUI.Button(l2Rect,"LEVEL 2")){
-			Application.LoadLevel("MainMenu");
+			Hashtable h = new Hashtable();
+			h.Add("level", 2);
+			SceneManager.LoadScene("Game", h);
 		}
 		else if(GUI.Button(l3Rect,"LEVEL 3")){
-			Application.LoadLevel("MainMenu");
+			Hashtable h = new Hashtable();
+			h.Add("level", 3);
+			SceneManager.LoadScene("Game", h);	
 		}
 		else if(GUI.Button(backRect,"BACK")){
 			Application.LoadLevel("MainMenu");

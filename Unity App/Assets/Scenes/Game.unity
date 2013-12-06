@@ -1606,8 +1606,12 @@ MonoBehaviour:
   AreaB: {fileID: 804618399}
   AreaC: {fileID: 1240664103}
   AreaD: {fileID: 549113955}
-  jsonFile: {fileID: 4900000, guid: f0cb99bbb27af9141960bb212cb87b3d, type: 3}
-  music: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
+  jsonFile1: {fileID: 4900000, guid: f0cb99bbb27af9141960bb212cb87b3d, type: 3}
+  music1: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
+  jsonFile2: {fileID: 4900000, guid: 9915965b07e54df4397f3688100255bb, type: 3}
+  music2: {fileID: 8300000, guid: c7f7affe9a394bf448cfb5378f83cade, type: 3}
+  jsonFile3: {fileID: 4900000, guid: a949e941f875b184fa0576620a4f0fc3, type: 3}
+  music3: {fileID: 8300000, guid: 1829fed791da36b4585f2d509f0b8cb2, type: 3}
 --- !u!114 &1641963497
 MonoBehaviour:
   m_ObjectHideFlags: 0

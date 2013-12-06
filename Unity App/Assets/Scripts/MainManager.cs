@@ -41,10 +41,18 @@ public class MainManager : MonoBehaviour
 	
 	protected bool direct_start;
 	
-	public TextAsset jsonFile;
-	public AudioClip music;
+	public TextAsset jsonFile1;
+	public AudioClip music1;
+	public TextAsset jsonFile2;
+	public AudioClip music2;
+	public TextAsset jsonFile3;
+	public AudioClip music3;
+	
+	protected TextAsset jsonFile;
+	protected AudioClip music;
 	
 	protected KinectGameController kinectController;
+	
 	
 	// Use this for initialization
 	void Start () 
@@ -62,6 +70,31 @@ public class MainManager : MonoBehaviour
 		bonusOn = false;
 		
 		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
+		
+		Hashtable h =  SceneManager.GetSceneArguments();
+		if( h!=null)
+		{
+			int whichMusic = (int) h["level"];
+			if(whichMusic == 1)
+			{				
+				jsonFile = jsonFile1;
+				music = music1;
+			}
+			else if(whichMusic == 2)
+			{
+				jsonFile = jsonFile2;
+				music = music2;
+			}
+			else{
+				jsonFile = jsonFile3;
+				music = music3;
+			}
+		}
+		else
+		{
+			jsonFile = jsonFile1;
+			music = music1;
+		}
 				
 		initializeFromJSON();
 		if(direct_start)
@@ -100,6 +133,9 @@ public class MainManager : MonoBehaviour
 			this.bonusOn = true;
 			setMultiplieur();
 		}
+		
+		if(Input.GetKey(KeyCode.Escape))
+			Application.LoadLevel("MainMenu");
 	}
 	
 	private void StartPistes () 
