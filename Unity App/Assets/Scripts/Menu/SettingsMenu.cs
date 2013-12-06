@@ -32,7 +32,7 @@ public class SettingsMenu : MonoBehaviour {
 		
 		//Calibrage
 		if(GUI.Button(new Rect(width / 7, (float)(height / 2.38),(float)(width / 3.5), height / 8),"Calibrate")){
-			//Application.LoadLevel("MainMenu");
+			Application.LoadLevel("Calibrate");
 		} //Credits
 		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.8),(float)(width / 3.5), height / 8),"Credits")){
 			Application.LoadLevel("Credits");

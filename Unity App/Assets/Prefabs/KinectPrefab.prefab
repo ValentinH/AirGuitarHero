@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensorHeight: 1
   kinectCenter: {x: 0, y: 0, z: 2}
-  lookAt: {x: 0, y: 1.20000005, z: 0, w: 0}
+  lookAt: {x: 0, y: 1.5, z: 0, w: 0}
   smoothing: .5
   correction: .5
   prediction: .5

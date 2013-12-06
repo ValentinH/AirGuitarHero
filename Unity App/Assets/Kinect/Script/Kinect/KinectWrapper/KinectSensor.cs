@@ -128,9 +128,7 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 			}
 			colorImage = new Color32[640*480];
 			
-			double theta = Mathf.Atan((lookAt.y+kinectCenter.y-sensorHeight) / (lookAt.z + kinectCenter.z));
-			long kinectAngle = (long)(theta * (180 / Mathf.PI));
-			NativeMethods.NuiCameraSetAngle(kinectAngle);
+			setKinectAngle(lookAt);
 			
 			DontDestroyOnLoad(gameObject);
 			KinectSensor.Instance = this;
@@ -141,6 +139,14 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 		{
 			Debug.Log(e.Message);
 		}
+	}
+	
+	public void setKinectAngle(Vector4 l)
+	{
+		lookAt = l;
+		double theta = Mathf.Atan((l.y+kinectCenter.y-sensorHeight) / (l.z + kinectCenter.z));
+		long kinectAngle = (long)(theta * (180 / Mathf.PI));
+		NativeMethods.NuiCameraSetAngle(kinectAngle);
 	}
 	
 	void LateUpdate()

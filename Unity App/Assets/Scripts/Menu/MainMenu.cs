@@ -2,73 +2,60 @@
 using System.Collections;
 
 
-public class MainMenu : MonoBehaviour {
-	
-	//Use the skin defined in the inspector
-	public GUISkin menuSkin;
-	public GUIText debug;
-	
-	protected KinectMenuController kinectController;
+public class MainMenu : MenuBase {
 	
 	protected Rect playRect;
 	protected Rect settingsRect;
 	protected Rect exitRect;
 	
-	protected float screenWidth, screenHeight;
 	
 	// Use this for initialization
-	void Start () {		
-		this.kinectController = (KinectMenuController) FindObjectOfType(typeof(KinectMenuController));
+	new void Start () {	
+		base.Start();
 		
-		screenWidth = Screen.width;
-		screenHeight = Screen.height;
-		playRect = new Rect(screenWidth / 7, (float)(screenHeight / 3.5),(float)(screenWidth / 3.5), screenHeight / 6);
-		settingsRect = new Rect(screenWidth / 7, (float)(screenHeight / 2.14),(float)(screenWidth / 3.5), screenHeight / 6);
-		exitRect = new Rect(screenWidth / 7, (float)(screenHeight / 1.55),(float)(screenWidth / 3.5), screenHeight / 6);
+		playRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 3.5),(float)(this.screenWidth / 3.5), this.screenHeight / 6);
+		settingsRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 2.14),(float)(this.screenWidth / 3.5), this.screenHeight / 6);
+		exitRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.55),(float)(this.screenWidth / 3.5), this.screenHeight / 6);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(kinectController.getRightHand().z > 0.5f)
+		//kinect management
+		if(this.clickEnabled && this.kinectController.getRightHand().z > 0.5f)
 		{
-			if(playRect.Contains(getHandPos()))
+			if(this.playRect.Contains(getHandPos()))
 			{		
 				Application.LoadLevel("LevelSelection");	
 			}
 			else
-				if(settingsRect.Contains(getHandPos()))
+				if(this.settingsRect.Contains(getHandPos()))
 				{		
 					Application.LoadLevel("SettingsMenu");	
 				}
 				else
-					if(settingsRect.Contains(getHandPos()))
+					if(this.settingsRect.Contains(getHandPos()))
 					{		
 						Application.Quit();			
 					}
 		}
 	}
 	
-	void OnGUI() {
-		float width = Screen.width;
-		float height = Screen.height;
+	void OnGUI() {		
+		GUI.skin = this.menuSkin;
 		
-		GUI.skin = menuSkin;
+		//mouse management
+		if(GUI.Button(playRect, "PLAY"))
+			Application.LoadLevel("LevelSelection");
+		else  
+			if(GUI.Button(settingsRect,"SETTINGS"))
+				Application.LoadLevel("SettingsMenu");		
+		else  
+			if(GUI.Button(exitRect,"EXIT"))
+				Application.Quit();
 		
-		GUI.Button(playRect, "PLAY");		
-		GUI.Button(settingsRect,"SETTINGS");		
-		GUI.Button(exitRect,"EXIT");
-		
-		GUI.Label(new Rect(width / 7, (float)(height / 1.2),(float)(width / 1.5), height / 6), "Play and play it again !");
-		GUI.Box (new Rect(width / 10,height / 7, (float)(width / 2.6), (float)(height / 1.36)), "MENU");
+		GUI.Label(new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.2),(float)(this.screenWidth / 1.5), this.screenHeight / 6), "Play and play it again !");
+		GUI.Box (new Rect(this.screenWidth / 10,this.screenHeight / 7, (float)(this.screenWidth / 2.6), (float)(this.screenHeight / 1.36)), "MENU");
 	}
 	
-	protected Vector2 getHandPos()
-	{
-		Vector2 hand = kinectController.getRightHand();
-		hand.x *= screenWidth;
-		hand.y = 1 - hand.y;
-		hand.y *= screenHeight;
-		return hand;		
-	}
 }
 

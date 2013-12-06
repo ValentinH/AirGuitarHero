@@ -27,7 +27,7 @@ public class NoteManager : MonoBehaviour
 	//si une note peut etre jouée (bras baissé)
 	protected bool valide;
 	//si une note est actellement jouée
-	protected bool active;
+	protected bool isActive;
 	//temps de début de la note
 	protected float noteStart;
 	//si une note a été jouée par le joueur
@@ -51,7 +51,7 @@ public class NoteManager : MonoBehaviour
 		this.initialized = false;
 		this.noteStart = 0;
 		this.noteObjects = new ArrayList();
-		this.active = false;
+		this.isActive = false;
 		this.nextNoteTime = 0;
 		this.previousNoteEnd = 0;
 		this.soundPlayed = false;
@@ -75,7 +75,7 @@ public class NoteManager : MonoBehaviour
 			}
 			
 			
-			if(!this.active)
+			if(!this.isActive)
 			{			
 				if(isNotePlayed())
 				{
@@ -191,7 +191,7 @@ public class NoteManager : MonoBehaviour
 		yield return new WaitForSeconds(this.mainManager.timeToNote + start-getTime());
 		
 		//la note est jouée
-		this.active = true;
+		this.isActive = true;
 		this.noteStart = getTime();
 		this.played = false;
 		this.missed = false;
@@ -205,7 +205,7 @@ public class NoteManager : MonoBehaviour
 		//la note est finie
 		if(this.mainManager.debug)
 			transform.guiTexture.enabled = false;
-		this.active = false;
+		this.isActive = false;
 		if(this.noteObjects.Count > 0)
 			this.noteObjects.RemoveAt(0);
 		

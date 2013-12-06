@@ -37,7 +37,7 @@ public class KinectMenuController : MonoBehaviour
 			Vector3 headPos = new Vector3 (sw.bonePos [0, 3].x, sw.bonePos [0, 3].y, sw.bonePos [0, 3].z);			
 			
 			//LeftHand management index=7
-			Vector3 leftPos = new Vector3 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y,	sw.bonePos [0, 7].z);			
+			//Vector3 leftPos = new Vector3 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y,	sw.bonePos [0, 7].z);			
 			
 			//RightHand management index=11
 			Vector3 rightPos = new Vector3 (sw.bonePos [0, 11].x, sw.bonePos [0, 11].y, sw.bonePos [0, 11].z); 
@@ -54,6 +54,15 @@ public class KinectMenuController : MonoBehaviour
 	public Vector3 getRightHand()
 	{
 		return rightHand;	
+	}
+	
+	public void moveKinect(float yDiff)
+	{
+		KinectSensor ks = (KinectSensor) FindObjectOfType(typeof(KinectSensor));
+		float y = ks.lookAt.y;
+		y += yDiff;
+		if(y>0 && y <2)
+			ks.setKinectAngle(new Vector3(0f, y, 0f));
 	}
 }
 
