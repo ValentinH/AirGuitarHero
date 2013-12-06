@@ -12,8 +12,9 @@ public class Calibrate : MenuBase {
 	// Use this for initialization
 	new void Start () {
 		base.Start();
+		
 		Vector2 middle = new Vector2(this.screenWidth / 2f, this.screenHeight / 2f);
-		backRect = new Rect(10f, (middle.y - this.screenHeight/16f), this.screenWidth / 6f, this.screenHeight / 8f);
+		backRect = new Rect((middle.x -  this.screenWidth /12f), (this.screenHeight/1.2f), this.screenWidth / 6f, this.screenHeight / 8f);
 		
 		Vector2 buttonSize = new Vector2(this.screenWidth / 3f, this.screenHeight / 5f);
 		upRect = new Rect((middle.x -  buttonSize.x/2), (middle.y - buttonSize.y - 20), buttonSize.x, buttonSize.y);

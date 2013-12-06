@@ -85,9 +85,11 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 		return lookAt;
 	}
 	
+	public bool kinectPlugged;
 	
 	void Awake()
 	{		
+		kinectPlugged = false;
 		try
 		{
 			// The MSR Kinect DLL (native code) is going to load into the Unity process and stay resident even between debug runs of the game.  
@@ -133,6 +135,7 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 			DontDestroyOnLoad(gameObject);
 			KinectSensor.Instance = this;
 			NativeMethods.NuiSetDeviceStatusCallback(new NuiStatusProc(), IntPtr.Zero);
+			kinectPlugged = true;
 		}
 		
 		catch (Exception e)

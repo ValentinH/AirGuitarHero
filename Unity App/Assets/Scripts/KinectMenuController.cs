@@ -19,6 +19,7 @@ public class KinectMenuController : MonoBehaviour
 	private Vector3 rightHand;
 	
 	public const float CLICK_Z = 0.5f;
+	protected Texture2D leftText, rightText, leftPushedText, rightPushedText;
 	
 	// Use this for initialization
 	void Start ()
@@ -32,6 +33,12 @@ public class KinectMenuController : MonoBehaviour
 		leftCursor = (GUITexture) GameObject.Find("LeftCursor").GetComponent<GUITexture>();
 		rightCursor = (GUITexture) GameObject.Find("RightCursor").GetComponent<GUITexture>();
 		debug = (GUIText) GameObject.Find("DebugLabel").GetComponent<GUIText>();
+		
+		leftText = (Texture2D) Resources.Load("Images/left_cursor", typeof(Texture2D));
+		rightText = (Texture2D) Resources.Load("Images/right_cursor", typeof(Texture2D));
+		leftPushedText = (Texture2D) Resources.Load("Images/left_cursor_grip", typeof(Texture2D));
+		rightPushedText = (Texture2D) Resources.Load("Images/right_cursor_grip", typeof(Texture2D));
+		
 	}
 	
 	// Update is called once per frame
@@ -59,6 +66,19 @@ public class KinectMenuController : MonoBehaviour
 			y =  0.75f - (headPos.y - leftPos.y);
 			leftCursor.transform.position = new Vector3(x, y, leftCursor.transform.position.z);
 			leftHand = new Vector3(x, y, leftPos.z - headPos.z);
+			
+			if(leftHand.z > CLICK_Z && leftCursor.texture.Equals(leftText))
+				leftCursor.texture = leftPushedText;
+			else 
+				if(leftHand.z < CLICK_Z && leftCursor.texture.Equals(leftPushedText))
+					leftCursor.texture = leftText;
+			
+			if(rightHand.z > CLICK_Z && rightCursor.texture.Equals(rightText))
+				rightCursor.texture = rightPushedText;
+			else 
+				if(rightHand.z < CLICK_Z && rightCursor.texture.Equals(rightPushedText))
+					rightCursor.texture = rightText;
+			
 			
 			
 		}

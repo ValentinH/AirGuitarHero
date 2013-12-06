@@ -7,7 +7,8 @@ using MiniJSON;
 public class KinectGameController : MonoBehaviour
 {
 	public GameObject KinectPrefab;
-	protected SkeletonWrapper sw;	
+	protected SkeletonWrapper sw;
+	protected KinectSensor ks;	
 	
 	//référence du Main manager
 	protected MainManager mainManager;
@@ -17,7 +18,7 @@ public class KinectGameController : MonoBehaviour
 	public Note.Which noteGauche, noteDroite, noteGenous;
 	public bool bonusActivated;
 	
-	protected Vector3 headPos, leftHand, rightHand, leftKnee, rightKnee;
+	protected Vector3 headPos, lastHeadPos, leftHand, rightHand, leftKnee, rightKnee;
 	
 	
 	// Use this for initialization
@@ -30,6 +31,8 @@ public class KinectGameController : MonoBehaviour
 			sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
 		}
 		
+		ks = (KinectSensor) FindObjectOfType(typeof(KinectSensor));
+		
 		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
 		noteGauche = noteDroite = noteGenous = Note.Which.NONE;
 		bonusActivated = false;
@@ -37,87 +40,87 @@ public class KinectGameController : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-	{
-		if(mainManager.clavier)
+	{		
+		noteGauche = noteDroite = noteGenous = Note.Which.NONE;
+		
+		if(Input.GetKey(KeyCode.LeftArrow))
+			noteGauche = Note.Which.A;
+		if(Input.GetKey(KeyCode.DownArrow))
 		{
-			noteGauche = noteDroite = noteGenous = Note.Which.NONE;
-			if(Input.GetKey(KeyCode.LeftArrow))
-				noteGauche = Note.Which.A;
-			if(Input.GetKey(KeyCode.DownArrow))
+			if(noteGauche == Note.Which.NONE)
+				noteGauche = Note.Which.B;
+			else
+				noteDroite = Note.Which.B;
+		}
+		if(Input.GetKey(KeyCode.RightArrow))
+		{
+			if(noteGauche == Note.Which.NONE)
+				noteGauche = Note.Which.C;
+			else
+				noteDroite = Note.Which.C;
+		}	
+		if(Input.GetKey(KeyCode.Space))
+		{
+			noteGenous = Note.Which.D;
+		}
+		
+		bonusActivated = false;
+		if(Input.GetKey(KeyCode.LeftAlt))
+		{
+			bonusActivated = true;
+		}	
+		
+				
+		//update all of the bones positions
+		if (ks.kinectPlugged && sw.pollSkeleton ()) 
+		{			
+			//Head management index=3
+			headPos = new Vector3 (
+						sw.bonePos [0, 3].x,
+						sw.bonePos [0, 3].y,
+						sw.bonePos [0, 3].z);	
+			
+			//check if player is still tracked
+			if(headPos.Equals(lastHeadPos))
+				return;
+			lastHeadPos = headPos;
+			
+			//LeftHand management index=7
+			leftHand = new Vector3 (
+						sw.bonePos [0, 7].x,
+						sw.bonePos [0, 7].y,
+						sw.bonePos [0, 7].z);			
+			
+			//RightHand management index=11
+			rightHand = new Vector3 (
+						sw.bonePos [0, 11].x,
+						sw.bonePos [0, 11].y,
+						sw.bonePos [0, 11].z); 
+			
+			//LeftKnee management index=15
+			leftKnee = new Vector3 (
+						sw.bonePos [0, 13].x,
+						sw.bonePos [0, 13].y,
+						sw.bonePos [0, 13].z);
+			
+			
+			//RightKnee management index=19
+			rightKnee = new Vector3 (
+						sw.bonePos [0, 17].x,
+						sw.bonePos [0, 17].y,
+						sw.bonePos [0, 17].z);
+			
+			
+			//détermination des notes
+			if(!headPos.Equals(new Vector3(0,0,0)))
 			{
-				if(noteGauche == Note.Which.NONE)
-					noteGauche = Note.Which.B;
-				else
-					noteDroite = Note.Which.B;
-			}
-			if(Input.GetKey(KeyCode.RightArrow))
-			{
-				if(noteGauche == Note.Which.NONE)
-					noteGauche = Note.Which.C;
-				else
-					noteDroite = Note.Which.C;
-			}	
-			if(Input.GetKey(KeyCode.Space))
-			{
-				noteGenous = Note.Which.D;
+				noteGauche = getNote (leftHand);
+				noteDroite = getNote (rightHand);
+				noteGenous = getNoteGenous();
 			}
 			
-			bonusActivated = false;
-			if(Input.GetKey(KeyCode.LeftAlt))
-			{
-				bonusActivated = true;
-			}				
-		}
-		else
-		{
-			//update all of the bones positions
-			if (sw.pollSkeleton ()) 
-			{			
-				//Head management index=3
-				headPos = new Vector3 (
-							sw.bonePos [0, 3].x,
-							sw.bonePos [0, 3].y,
-							sw.bonePos [0, 3].z);			
-				
-				//LeftHand management index=7
-				leftHand = new Vector3 (
-							sw.bonePos [0, 7].x,
-							sw.bonePos [0, 7].y,
-							sw.bonePos [0, 7].z);			
-				
-				//RightHand management index=11
-				rightHand = new Vector3 (
-							sw.bonePos [0, 11].x,
-							sw.bonePos [0, 11].y,
-							sw.bonePos [0, 11].z); 
-				
-				//LeftKnee management index=15
-				leftKnee = new Vector3 (
-							sw.bonePos [0, 13].x,
-							sw.bonePos [0, 13].y,
-							sw.bonePos [0, 13].z);
-				
-				
-				//RightKnee management index=19
-				rightKnee = new Vector3 (
-							sw.bonePos [0, 17].x,
-							sw.bonePos [0, 17].y,
-							sw.bonePos [0, 17].z);
-				
-				
-				//détermination des notes
-				if(!headPos.Equals(new Vector3(0,0,0)))
-				{
-					noteGauche = getNote (leftHand);
-					noteDroite = getNote (rightHand);
-					noteGenous = getNoteGenous();
-				}
-				else
-					noteGauche = noteDroite = noteGenous = Note.Which.NONE;
-				
-				bonusActivated = checkBonus();
-			}
-		}
+			bonusActivated = checkBonus();
+		}		
 	}
 	
 	private Note.Which getNote (Vector3 handPos)
