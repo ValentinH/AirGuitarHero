@@ -26,16 +26,22 @@ public class LevelSelectionMenu : MenuBase {
 		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
 		{
 			if(checkClick(this.l1Rect))
-			{						
-				Application.LoadLevel("Game");	
+			{
+				Hashtable h = new Hashtable();
+				h.Add("level", 1);
+				SceneManager.LoadScene("Game", h);
 			}
 			else if(checkClick(this.l2Rect))
 			{		
-				Application.LoadLevel("MainMenu");	
+				Hashtable h = new Hashtable();
+				h.Add("level", 2);
+				SceneManager.LoadScene("Game", h);
 			}
 			else if(checkClick(this.l3Rect))
 			{		
-				Application.LoadLevel("MainMenu");			
+				Hashtable h = new Hashtable();
+				h.Add("level", 3);
+				SceneManager.LoadScene("Game", h);			
 			}
 			else if(checkClick(this.backRect))
 			{		

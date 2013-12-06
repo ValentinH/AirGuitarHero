@@ -1606,7 +1606,7 @@ MonoBehaviour:
   AreaB: {fileID: 804618399}
   AreaC: {fileID: 1240664103}
   AreaD: {fileID: 549113955}
-  jsonFile: {fileID: 4900000, guid: 0d5fae5e0864ea842b75ca41fa845bb5, type: 3}
+  jsonFile: {fileID: 4900000, guid: f0cb99bbb27af9141960bb212cb87b3d, type: 3}
   music: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
 --- !u!114 &1641963497
 MonoBehaviour:

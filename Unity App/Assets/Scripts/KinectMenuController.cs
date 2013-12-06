@@ -57,12 +57,12 @@ public class KinectMenuController : MonoBehaviour
 			Vector3 rightPos = new Vector3 (sw.bonePos [0, 11].x, sw.bonePos [0, 11].y, sw.bonePos [0, 11].z); 
 			
 			
-			float x = (rightPos.x - headPos.x)+ 0.15f;
+			float x = (rightPos.x - headPos.x)+ 0.35f;
 			float y =  0.75f - (headPos.y - rightPos.y);
 			rightCursor.transform.position = new Vector3(x, y, rightCursor.transform.position.z);
 			rightHand = new Vector3(x, y, rightPos.z - headPos.z);
 			
-			x = (leftPos.x - headPos.x)+ 0.85f;
+			x = (leftPos.x - headPos.x)+ 0.65f;
 			y =  0.75f - (headPos.y - leftPos.y);
 			leftCursor.transform.position = new Vector3(x, y, leftCursor.transform.position.z);
 			leftHand = new Vector3(x, y, leftPos.z - headPos.z);

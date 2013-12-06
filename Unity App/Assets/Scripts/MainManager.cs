@@ -62,7 +62,7 @@ public class MainManager : MonoBehaviour
 		bonusOn = false;
 		
 		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
-		
+				
 		initializeFromJSON();
 		if(direct_start)
 			StartPistes();
@@ -104,10 +104,10 @@ public class MainManager : MonoBehaviour
 	
 	private void StartPistes () 
 	{
-		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A);
-		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B);
-		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C);
-		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D);
+		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A, this);
+		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B, this);
+		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C, this);
+		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
 		
 		StartCoroutine("StartSong");
 	}	

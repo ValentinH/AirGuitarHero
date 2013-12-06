@@ -45,8 +45,11 @@ public class NoteManager : MonoBehaviour
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
-		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
-		this.mainManager = (MainManager) FindObjectOfType(typeof(MainManager));
+		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));		
+	}
+		
+	public void init(ArrayList liste, Note.Which piste, MainManager m)
+	{	
 		this.beginning = 0;
 		this.initialized = false;
 		this.noteStart = 0;
@@ -55,6 +58,13 @@ public class NoteManager : MonoBehaviour
 		this.nextNoteTime = 0;
 		this.previousNoteEnd = 0;
 		this.soundPlayed = false;
+		this.mainManager = m;
+		this.piste = piste;
+		this.notesListe = liste;
+		this.beginning = Time.timeSinceLevelLoad;
+		this.initialized = true;
+		StartCoroutine(playNotes());
+		StartCoroutine(renderNotes());
 	}
 	
 	void Update () 
@@ -159,16 +169,6 @@ public class NoteManager : MonoBehaviour
 			this.originalColor = noteObject.transform.renderer.material.color;
 			noteObject.transform.renderer.material.color = c;
 		}	
-	}
-	
-	public void init(ArrayList liste, Note.Which piste)
-	{		
-		this.piste = piste;
-		this.notesListe = liste;
-		this.beginning = Time.timeSinceLevelLoad;
-		this.initialized = true;
-		StartCoroutine(playNotes());
-		StartCoroutine(renderNotes());
 	}
 	
 	IEnumerator playNotes() 

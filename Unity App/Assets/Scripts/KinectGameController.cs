@@ -69,11 +69,10 @@ public class KinectGameController : MonoBehaviour
 		{
 			bonusActivated = true;
 		}	
-		
 				
 		//update all of the bones positions
 		if (ks.kinectPlugged && sw.pollSkeleton ()) 
-		{			
+		{	
 			//Head management index=3
 			headPos = new Vector3 (
 						sw.bonePos [0, 3].x,
