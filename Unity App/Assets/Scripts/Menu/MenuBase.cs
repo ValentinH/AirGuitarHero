@@ -5,7 +5,7 @@ public class MenuBase : MonoBehaviour {
 	
 	//Use the skin defined in the inspector
 	public GUISkin menuSkin;
-	public GUIText debug;
+	protected GUIText debug;
 	
 	protected KinectMenuController kinectController;
 	
@@ -16,25 +16,32 @@ public class MenuBase : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 		this.clickEnabled = false;
-		StartCoroutine("enableClick");
-		this.kinectController = (KinectMenuController) FindObjectOfType(typeof(KinectMenuController));
+		StartCoroutine("enableClick", 1f);
 		
-		screenWidth = Screen.width;
-		screenHeight = Screen.height;
+		this.kinectController = (KinectMenuController) FindObjectOfType(typeof(KinectMenuController));		
+		this.debug = (GUIText) GameObject.Find("DebugLabel").GetComponent<GUIText>();
+		this.screenWidth = Screen.width;
+		this.screenHeight = Screen.height;
 	}
 	
-	private IEnumerator enableClick()
+	protected IEnumerator enableClick(float wait)
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(wait);
 		this.clickEnabled = true;
 	}
 	
-	protected Vector2 getHandPos()
+	protected bool checkClick(Rect rect)
 	{
-		Vector2 hand = kinectController.getRightHand();
-		hand.x *= screenWidth;
-		hand.y = 1 - hand.y;
-		hand.y *= screenHeight;
-		return hand;		
+		Vector2 rightHand = kinectController.getRightHand();
+		rightHand.x *= screenWidth;
+		rightHand.y = 1 - rightHand.y;
+		rightHand.y *= screenHeight;
+		
+		Vector2 leftHand = kinectController.getLeftHand();
+		leftHand.x *= screenWidth;
+		leftHand.y = 1 - leftHand.y;
+		leftHand.y *= screenHeight;
+		
+		return rect.Contains(rightHand)||rect.Contains(leftHand);				
 	}
 }

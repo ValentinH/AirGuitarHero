@@ -23,21 +23,21 @@ public class LevelSelectionMenu : MenuBase {
 	// Update is called once per frame
 	void Update () {
 		//kinect management
-		if(this.clickEnabled && this.kinectController.getRightHand().z > 0.5f)
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
 		{
-			if(this.l1Rect.Contains(getHandPos()))
+			if(checkClick(this.l1Rect))
 			{						
 				Application.LoadLevel("Game");	
 			}
-			else if(this.l2Rect.Contains(getHandPos()))
+			else if(checkClick(this.l2Rect))
 			{		
 				Application.LoadLevel("MainMenu");	
 			}
-			else if(this.l3Rect.Contains(getHandPos()))
+			else if(checkClick(this.l3Rect))
 			{		
 				Application.LoadLevel("MainMenu");			
 			}
-			else if(this.l3Rect.Contains(getHandPos()))
+			else if(checkClick(this.backRect))
 			{		
 				Application.LoadLevel("MainMenu");		
 			}

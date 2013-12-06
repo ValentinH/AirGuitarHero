@@ -21,19 +21,19 @@ public class MainMenu : MenuBase {
 	// Update is called once per frame
 	void Update () {
 		//kinect management
-		if(this.clickEnabled && this.kinectController.getRightHand().z > 0.5f)
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
 		{
-			if(this.playRect.Contains(getHandPos()))
+			if(checkClick(this.playRect))
 			{		
 				Application.LoadLevel("LevelSelection");	
 			}
 			else
-				if(this.settingsRect.Contains(getHandPos()))
+				if(checkClick(this.settingsRect))
 				{		
 					Application.LoadLevel("SettingsMenu");	
 				}
 				else
-					if(this.settingsRect.Contains(getHandPos()))
+					if(checkClick(this.exitRect))
 					{		
 						Application.Quit();			
 					}

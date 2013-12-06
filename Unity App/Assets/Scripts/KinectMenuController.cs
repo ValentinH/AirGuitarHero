@@ -9,12 +9,16 @@ public class KinectMenuController : MonoBehaviour
 	public GameObject KinectPrefab;
 	
 	protected SkeletonWrapper sw;
-	public GUITexture cursor;
-	public GUIText debug;
+	protected GUITexture leftCursor;
+	protected GUITexture rightCursor;
+	protected GUIText debug;
 	
 	private GameObject[] _bones;
 	
+	private Vector3 leftHand;
 	private Vector3 rightHand;
+	
+	public const float CLICK_Z = 0.5f;
 	
 	// Use this for initialization
 	void Start ()
@@ -25,6 +29,9 @@ public class KinectMenuController : MonoBehaviour
 			Instantiate(KinectPrefab);
 			sw = (SkeletonWrapper) FindObjectOfType(typeof(SkeletonWrapper));
 		}
+		leftCursor = (GUITexture) GameObject.Find("LeftCursor").GetComponent<GUITexture>();
+		rightCursor = (GUITexture) GameObject.Find("RightCursor").GetComponent<GUITexture>();
+		debug = (GUIText) GameObject.Find("DebugLabel").GetComponent<GUIText>();
 	}
 	
 	// Update is called once per frame
@@ -37,16 +44,23 @@ public class KinectMenuController : MonoBehaviour
 			Vector3 headPos = new Vector3 (sw.bonePos [0, 3].x, sw.bonePos [0, 3].y, sw.bonePos [0, 3].z);			
 			
 			//LeftHand management index=7
-			//Vector3 leftPos = new Vector3 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y,	sw.bonePos [0, 7].z);			
+			Vector3 leftPos = new Vector3 (sw.bonePos [0, 7].x,	sw.bonePos [0, 7].y,	sw.bonePos [0, 7].z);			
 			
 			//RightHand management index=11
 			Vector3 rightPos = new Vector3 (sw.bonePos [0, 11].x, sw.bonePos [0, 11].y, sw.bonePos [0, 11].z); 
 			
 			
-			float x = (headPos.x + rightPos.x )+ 0.5f;
-			float y =  1 - (headPos.y - rightPos.y);			
-			cursor.transform.position = new Vector3(x, y, cursor.transform.position.z);
+			float x = (rightPos.x - headPos.x)+ 0.15f;
+			float y =  0.75f - (headPos.y - rightPos.y);
+			rightCursor.transform.position = new Vector3(x, y, rightCursor.transform.position.z);
 			rightHand = new Vector3(x, y, rightPos.z - headPos.z);
+			
+			x = (leftPos.x - headPos.x)+ 0.85f;
+			y =  0.75f - (headPos.y - leftPos.y);
+			leftCursor.transform.position = new Vector3(x, y, leftCursor.transform.position.z);
+			leftHand = new Vector3(x, y, leftPos.z - headPos.z);
+			
+			
 		}
 		
 	}
@@ -54,6 +68,11 @@ public class KinectMenuController : MonoBehaviour
 	public Vector3 getRightHand()
 	{
 		return rightHand;	
+	}
+	
+	public Vector3 getLeftHand()
+	{
+		return leftHand;	
 	}
 	
 	public void moveKinect(float yDiff)

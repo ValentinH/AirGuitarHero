@@ -2,46 +2,63 @@
 using System.Collections;
 
 
-public class SettingsMenu : MonoBehaviour {
+public class SettingsMenu : MenuBase {
 	
-	//Use the skin defined in the inspector
-	public GUISkin menuSkin;
-	public float x = 3.5f;
-	public float y = 3.5f;
-	public float z = 7;
+	protected Rect calibRect;
+	protected Rect credRect;
+	protected Rect backRect;
 	
 	// Use this for initialization
-	void Start () {
+	new void Start () {
+		base.Start();
+		
+		calibRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 2.38),(float)(this.screenWidth / 3.5), this.screenHeight / 8);
+		credRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.8),(float)(this.screenWidth / 3.5), this.screenHeight / 8);
+		backRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.44),(float)(this.screenWidth / 3.5), this.screenHeight / 8);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//kinect management
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
+		{
+			if(checkClick(this.calibRect))
+			{
+				Application.LoadLevel("Calibrate");
+			}
+			else
+				if(checkClick(this.credRect))
+				{
+					Application.LoadLevel("Credits");
+				}
+				else
+					if(checkClick(this.backRect))
+					{		
+						Application.LoadLevel("MainMenu");
+					}
+		}
 	}
 	
-	void OnGUI() {
-		float width = Screen.width;
-		float height = Screen.height;
-		float volume = 1;
-		
+	void OnGUI() {		
 		GUI.skin = menuSkin;
 		
 		//Volume
-		GUI.Label (new Rect(width / 4.3f, height / 3.77f, width / 3.5f, height / 8), "Volume");
-		volume = GUI.HorizontalSlider(new Rect(width / 7, (float)(height / 3),(float)(width / 3.5), height / 8), MusicManager.GetVolume(), (float)0.1, 1);
+		GUI.Label (new Rect(this.screenWidth / 4.3f, this.screenHeight / 3.77f, this.screenWidth / 3.5f, this.screenHeight / 8), "Volume");
+		float volume = GUI.HorizontalSlider(new Rect(this.screenWidth / 7, (float)(this.screenHeight / 3),(float)(this.screenWidth / 3.5), this.screenHeight / 8), MusicManager.GetVolume(), (float)0.1, 1);
 		MusicManager.SetVolume (volume);
 		
 		//Calibrage
-		if(GUI.Button(new Rect(width / 7, (float)(height / 2.38),(float)(width / 3.5), height / 8),"Calibrate")){
+		if(GUI.Button(calibRect,"Calibrate")){
 			Application.LoadLevel("Calibrate");
 		} //Credits
-		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.8),(float)(width / 3.5), height / 8),"Credits")){
+		else if(GUI.Button(credRect,"Credits")){
 			Application.LoadLevel("Credits");
 		}//Back to main menu
-		else if(GUI.Button(new Rect(width / 7, (float)(height / 1.44),(float)(width / 3.5), height / 8),"Menu")){
+		else if(GUI.Button(backRect,"Menu")){
 			Application.LoadLevel("MainMenu");
 		}
-		GUI.Label(new Rect(width / 7, (float)(height / 1.2),(float)(width / 1.5), height / 6), "Play and play it again !");
-		GUI.Box (new Rect(width / 10,height / 7, (float)(width / 2.6), (float)(height / 1.36)), "Settings");
+		GUI.Label(new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.2),(float)(this.screenWidth / 1.5), this.screenHeight / 6), "Play and play it again !");
+		GUI.Box (new Rect(this.screenWidth / 10,this.screenHeight / 7, (float)(this.screenWidth / 2.6), (float)(this.screenHeight / 1.36)), "Settings");
 			
 	}
 }

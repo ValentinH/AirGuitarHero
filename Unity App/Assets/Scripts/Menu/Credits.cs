@@ -2,39 +2,44 @@
 using System.Collections;
 
 
-public class Credits : MonoBehaviour {
+public class Credits : MenuBase {
 	
-	//Use the skin defined in the inspector
-	public GUISkin menuSkin;
-	public float x = 3.5f;
-	public float y = 3.5f;
-	public float z = 7;
+	private Rect backRect;
 	
 	// Use this for initialization
-	void Start () {
+	new void Start () {
+		base.Start();
+		
+		backRect = new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.44),(float)(this.screenWidth / 3.5), this.screenHeight / 8);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//kinect management
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
+		{
+			if(checkClick(this.backRect))
+			{		
+				Application.LoadLevel("SettingsMenu");
+			}
+		}
 	}
 	
 	void OnGUI() {
-		float width = Screen.width;
-		float height = Screen.height;
 		
 		GUI.skin = menuSkin;
 		
 		//Volume
-		GUI.Label (new Rect(width / x, height / y, width / 3.5f, height / 8), "UTC");
+		GUI.Label (new Rect(this.screenWidth / 3.5f, this.screenHeight / 3.5f, this.screenWidth / 3.5f, this.screenHeight / 8), "UTC");
 	
-		GUI.TextArea(new Rect(width / 7, height / 3.77f, width / 3.5f, height / 2.48f), "Developed by Valentin Hervieu and Vincent Meyer for the University of Technologie of Compiègne");
+		GUI.TextArea(new Rect(this.screenWidth / 7, this.screenHeight / 3.77f, this.screenWidth / 3.5f, this.screenHeight / 2.48f), "Developed by Valentin Hervieu and Vincent Meyer for the University of Technologie of Compiègne");
 		
 		//Back to settings
-		if(GUI.Button(new Rect(width / 7, (float)(height / 1.44),(float)(width / 3.5), height / 8),"Back")){
+		if(GUI.Button(backRect,"Back")){
 			Application.LoadLevel("SettingsMenu");
 		}
-		GUI.Label(new Rect(width / 7, (float)(height / 1.2),(float)(width / 1.5), height / 6), "Play and play it again !");
-		GUI.Box (new Rect(width / 10,height / 7, (float)(width / 2.6), (float)(height / 1.36)), "Credits");
+		GUI.Label(new Rect(this.screenWidth / 7, (float)(this.screenHeight / 1.2),(float)(this.screenWidth / 1.5), this.screenHeight / 6), "Play and play it again !");
+		GUI.Box (new Rect(this.screenWidth / 10,this.screenHeight / 7, (float)(this.screenWidth / 2.6), (float)(this.screenHeight / 1.36)), "Credits");
 			
 	}
 }

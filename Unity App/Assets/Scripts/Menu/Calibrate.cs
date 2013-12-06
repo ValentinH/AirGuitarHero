@@ -12,30 +12,38 @@ public class Calibrate : MenuBase {
 	// Use this for initialization
 	new void Start () {
 		base.Start();
+		Vector2 middle = new Vector2(this.screenWidth / 2f, this.screenHeight / 2f);
+		backRect = new Rect(10f, (middle.y - this.screenHeight/16f), this.screenWidth / 6f, this.screenHeight / 8f);
 		
-		backRect = new Rect(this.screenWidth / 2.7f, this.screenHeight / 2.3f, this.screenWidth / 4f, this.screenHeight / 8f);
-		upRect = new Rect(this.screenWidth / 2.3f, this.screenHeight / 9f, this.screenWidth / 7f, this.screenHeight / 8f);
-		downRect = new Rect(this.screenWidth / 2.3f, this.screenHeight / 1.3f, this.screenWidth / 7f, this.screenHeight / 8f);
+		Vector2 buttonSize = new Vector2(this.screenWidth / 3f, this.screenHeight / 5f);
+		upRect = new Rect((middle.x -  buttonSize.x/2), (middle.y - buttonSize.y - 20), buttonSize.x, buttonSize.y);
+		downRect = new Rect((middle.x - buttonSize.x/2), (middle.y + 20), buttonSize.x, buttonSize.y);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//kinect management
-		if(this.clickEnabled && this.kinectController.getRightHand().z > 0.5f)
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
 		{
-			if(this.upRect.Contains(getHandPos()))
+			if(checkClick(this.upRect))
 			{
+				//to prevent multiple clicks in a row
+				this.clickEnabled = false;
 				this.kinectController.moveKinect(0.2f);	
+				StartCoroutine("enableClick", 2f);
 			}
 			else
-				if(this.downRect.Contains(getHandPos()))
-				{		
+				if(checkClick(this.downRect))
+				{
+					//to prevent multiple clicks in a row
+					this.clickEnabled = false;
 					this.kinectController.moveKinect(-0.2f);
+					StartCoroutine("enableClick", 2f);
 				}
 				else
-					if(this.backRect.Contains(getHandPos()))
+					if(checkClick(this.backRect))
 					{		
-						Application.LoadLevel("SettingsMenu");			
+						Application.LoadLevel("SettingsMenu");
 					}
 		}
 	}
