@@ -7,6 +7,10 @@ public class NoteManager : MonoBehaviour
 	public GameObject notePrefab;
 	public GameObject toucheObject;
 	
+	//Particule des notes jouées
+	public GameObject particle;
+	protected GameObject newParticle = null;
+	
 	//déterminant de la piste (A, B ou C)
 	protected Note.Which piste;	
 	//liste des notes à jouer
@@ -50,6 +54,7 @@ public class NoteManager : MonoBehaviour
 		
 	public void init(ArrayList liste, Note.Which piste, MainManager m)
 	{	
+		this.newParticle = null;
 		this.beginning = 0;
 		this.initialized = false;
 		this.noteStart = 0;
@@ -77,11 +82,15 @@ public class NoteManager : MonoBehaviour
 			{
 				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);	
 				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);
+				if(this.played && newParticle == null)
+					newParticle = (GameObject) Instantiate(particle, toucheObject.transform.position, toucheObject.transform.rotation);
 			}
 			else
 			{
 				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 1f, toucheObject.transform.position.z);
 				toucheObject.transform.renderer.material.color = new Color(39f/255,45f/255,255f/255,255f/255);	
+				if(newParticle != null)
+					Destroy(newParticle);
 			}
 			
 			
@@ -100,7 +109,10 @@ public class NoteManager : MonoBehaviour
 						}
 						
 						this.valide = false;
-						this.mainManager.resetCombo();		
+						this.mainManager.resetCombo();
+						this.played = false;
+						if(newParticle != null)
+							Destroy(newParticle);
 					}
 				}
 				else
