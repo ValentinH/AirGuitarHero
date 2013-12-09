@@ -136,9 +136,11 @@ public class MainManager : MonoBehaviour
 		}
 		
 		//Fin de la partie
-		if(Time.time > (this.song_length + 5f) || Input.GetKey(KeyCode.Escape))
-			Application.LoadLevel("MainMenu");
-	}
+		if(this.beginning_song != 0){
+			if(Time.time > (this.beginning_song + this.song_length + 5f) || Input.GetKey(KeyCode.Escape))
+				Application.LoadLevel("MainMenu");
+		}
+	}	
 	
 	private void StartPistes () 
 	{
