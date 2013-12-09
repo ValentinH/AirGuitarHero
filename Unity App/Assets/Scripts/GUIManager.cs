@@ -5,6 +5,7 @@ using System.IO;
 public class GUIManager : MonoBehaviour 
 {		
 	public GUIText debugLabel;
+	public float x = 16;
 	
 	public GUIText comboLabel;
 	public GUIText countdownLabel;
@@ -29,11 +30,18 @@ public class GUIManager : MonoBehaviour
 		instance.screen = GameObject.Find("Screen");
 		instance.screen.transform.position = new Vector3(0, -0.0475f*Screen.height, 0.05f*Screen.height);
 		instance.screen.transform.localScale = new Vector3(Screen.width/100f, 1, Screen.height/100f);
+		
+		//adjust label size to screen
+		instance.timeLabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		instance.comboLabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		instance.multiplicateurlabel.fontSize = (int) Math.Round(Screen.width / 28d);;
+		instance.pointsLabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		instance.pourcentslabel.fontSize = (int) Math.Round(Screen.width / 28d);
     }
 	
 	public static void SetTime(float current, float total)
 	{
-		instance.timeLabel.text = String.Format("{0:00}:{1:00}",current/60, current%60)+" / "+String.Format("{0:00}:{1:00}",total/60,total%60);
+		instance.timeLabel.text = String.Format("{0:00}:{1:00}",Math.Truncate(current/60f), Math.Truncate(current%60f))+" / "+String.Format("{0:00}:{1:00}",Math.Truncate(total/60f),Math.Truncate(total%60f));
 	}
 	
 	public static void SetCountdown(int count)

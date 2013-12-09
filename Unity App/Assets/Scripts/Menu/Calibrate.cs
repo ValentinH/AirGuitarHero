@@ -53,8 +53,7 @@ public class Calibrate : MenuBase {
 		GUI.skin = menuSkin;
 		
 		//Buttons
-		//GUI.Label (new Rect(this.screenWidth / x, this.screenHeight / y, this.screenWidth / 3.5f, this.screenHeight / 8), "UTC");
-	
+		
 		//Back to settings
 		if(GUI.Button(backRect,"Back")){
 			Application.LoadLevel("SettingsMenu");

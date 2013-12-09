@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLabel: {fileID: 91748962}
+  x: 16
   comboLabel: {fileID: 301262820}
   countdownLabel: {fileID: 1576030234}
   multiplicateurlabel: {fileID: 1124931969}
@@ -1121,6 +1122,15 @@ Prefab:
       propertyPath: debugLabel
       value: 
       objectReference: {fileID: 91748962}
+    - target: {fileID: 13200012, guid: 0ff6459f7c369c54dba15d8f816447f9, type: 2}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 1fc877a2246e32b4d949617ac9d04b20,
+        type: 3}
+    - target: {fileID: 11400000, guid: 0ff6459f7c369c54dba15d8f816447f9, type: 2}
+      propertyPath: x
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ff6459f7c369c54dba15d8f816447f9, type: 2}
   m_RootGameObject: {fileID: 63377929}
@@ -1415,7 +1425,7 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 1fc877a2246e32b4d949617ac9d04b20, type: 3}
   m_Material: {fileID: 0}
   m_FontSize: 100
   m_FontStyle: 1
@@ -1761,7 +1771,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1915770915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .662500024, y: 1, z: 1.20000005}
+  m_LocalPosition: {x: 0, y: 0, z: -1.26903677}
+  m_LocalScale: {x: .662500024, y: 1, z: 1.04963398}
   m_Children: []
   m_Father: {fileID: 0}
