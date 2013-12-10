@@ -21,6 +21,8 @@ public class MainManager : MonoBehaviour
 	public GUITexture AreaB;
 	public GUITexture AreaC;
 	public GUITexture AreaD;
+	public GUITexture AreaE;
+	public GUITexture AreaF;
 	
 	protected ArrayList notesA, notesB, notesC, notesD;
 	protected bool started;
@@ -148,6 +150,9 @@ public class MainManager : MonoBehaviour
 		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B, this);
 		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C, this);
 		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
+		//Test note E and F
+		AreaE.GetComponent<NoteManager>().init(notesB, Note.Which.E, this);
+		AreaF.GetComponent<NoteManager>().init(notesB, Note.Which.F, this);
 		
 		StartCoroutine("StartSong");
 	}	
