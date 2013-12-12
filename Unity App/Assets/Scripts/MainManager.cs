@@ -151,8 +151,8 @@ public class MainManager : MonoBehaviour
 		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C, this);
 		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
 		//Test note E and F
-		AreaE.GetComponent<NoteManager>().init(notesB, Note.Which.E, this);
-		AreaF.GetComponent<NoteManager>().init(notesB, Note.Which.F, this);
+		//AreaE.GetComponent<NoteManager>().init(notesB, Note.Which.E, this);
+		//AreaF.GetComponent<NoteManager>().init(notesB, Note.Which.F, this);
 		
 		StartCoroutine("StartSong");
 	}	
