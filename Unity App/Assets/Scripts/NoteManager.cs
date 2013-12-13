@@ -70,6 +70,12 @@ public class NoteManager : MonoBehaviour
 		this.initialized = true;
 		StartCoroutine(playNotes());
 		StartCoroutine(renderNotes());
+		this.toucheObject.renderer.enabled = true;
+	}
+	
+	public void disableTouch()
+	{	
+		this.toucheObject.renderer.enabled = false;
 	}
 	
 	void Update () 

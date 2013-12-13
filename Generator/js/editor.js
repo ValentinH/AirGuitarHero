@@ -131,7 +131,7 @@ $(function()
 					$("#D").addClass("activeD");
 				}
 				break;
-				case 16:
+				case 81:
 				if(!fired4)
 				{
 					fired5 = true;
@@ -139,7 +139,7 @@ $(function()
 					$("#E").addClass("activeE");
 				}
 				break;
-				case 35:
+				case 68:
 				if(!fired6)
 				{
 					fired6 = true;
@@ -176,12 +176,12 @@ $(function()
 				song.D.push(new Note(n4, (t-start-n4)));
 				$("#D").removeClass("activeD");
 				break;
-				case 16:
+				case 81:
 				fired5 = false;
 				song.E.push(new Note(n5, (t-start-n5)));
 				$("#E").removeClass("activeE");
 				break;
-				case 35:
+				case 68:
 				fired6 = false;
 				song.F.push(new Note(n6, (t-start-n6)));
 				$("#F").removeClass("activeF");

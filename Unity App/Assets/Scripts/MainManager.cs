@@ -9,7 +9,6 @@ public class MainManager : MonoBehaviour
 	//PARAMETRES
 	public bool clavier = false;
 	public float timeToNote = 2f;
-	public float decalageNotesLaterales = 0f;
 	public float reflexTime = 0.1f;
 	public float timeAfterNote = 0.3f;
 	public float timeBeforeNote = 0.1f;
@@ -54,6 +53,9 @@ public class MainManager : MonoBehaviour
 	protected TextAsset jsonFile;
 	protected AudioClip music;
 	
+	protected bool hasLaterals;
+	protected bool hasKnees;
+	
 	protected KinectGameController kinectController;
 	
 	
@@ -71,6 +73,8 @@ public class MainManager : MonoBehaviour
 		multiplicateur = 1;
 		notesTotales = notesReussies = 0;
 		bonusOn = false;
+		hasLaterals = false;
+		hasKnees = false;
 		
 		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
 		
@@ -102,7 +106,7 @@ public class MainManager : MonoBehaviour
 				
 		initializeFromJSON();
 		if(direct_start)
-			StartCoroutine("StartPistes");
+			StartPistes();
 	}
 	
 	// Update is called once per frame
@@ -114,7 +118,7 @@ public class MainManager : MonoBehaviour
 			{
 				this.started = true;
 				if(!direct_start)
-					StartCoroutine("StartPistes");
+					StartPistes();
 			}
 			else
 			{//gestion du countdown
@@ -150,12 +154,18 @@ public class MainManager : MonoBehaviour
 		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A, this);
 		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B, this);
 		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C, this);
-		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
-		AreaE.GetComponent<NoteManager>().init(notesE, Note.Which.E, this);
-		AreaF.GetComponent<NoteManager>().init(notesF, Note.Which.F, this);
-		
+		if(hasKnees)
+			AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
+		if(hasLaterals)
+		{
+			AreaE.GetComponent<NoteManager>().init(notesE, Note.Which.E, this);
+			AreaF.GetComponent<NoteManager>().init(notesF, Note.Which.F, this);
+		}
+		else {			
+			AreaE.GetComponent<NoteManager>().disableTouch();
+			AreaF.GetComponent<NoteManager>().disableTouch();
+		}
 		StartCoroutine("StartSong");
-		//yield return new WaitForSeconds(this.decalageNotesLaterales);
 	}	
 	
 	private IEnumerator StartSong () 
@@ -204,6 +214,7 @@ public class MainManager : MonoBehaviour
 			foreach (IDictionary note in dd) {
 				notesD.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
 			}
+			hasKnees = true;
 		}	
 		
 		// récupération des notes de la piste E
@@ -214,6 +225,7 @@ public class MainManager : MonoBehaviour
 			foreach (IDictionary note in ee) {
 				notesE.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
 			}
+			hasLaterals = true;
 		}	
 		
 		// récupération des notes de la piste E
@@ -224,6 +236,7 @@ public class MainManager : MonoBehaviour
 			foreach (IDictionary note in ff) {
 				notesF.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
 			}
+			hasLaterals = true;
 		}
 		
 		if(search.Contains("direct_start"))
@@ -283,5 +296,13 @@ public class MainManager : MonoBehaviour
 		GUIManager.SetMultiplicateur(this.multiplicateur);
 	}
 	
+	public bool HasLaterals()
+	{
+		return hasLaterals;	
+	}
 	
+	public bool HasKnees()
+	{
+		return hasKnees;	
+	}
 }

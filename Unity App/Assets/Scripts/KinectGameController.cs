@@ -18,7 +18,7 @@ public class KinectGameController : MonoBehaviour
 	public Note.Which noteGauche, noteDroite, noteGenous;
 	public bool bonusActivated;
 	
-	protected Vector3 headPos, lastHeadPos, leftHand, rightHand, frontLeftHand, frontRightHand, leftKnee, rightKnee;
+	protected Vector3 headPos, lastHeadPos, leftHand, rightHand, leftKnee, rightKnee;
 	
 	
 	// Use this for initialization
@@ -59,14 +59,14 @@ public class KinectGameController : MonoBehaviour
 			else
 				noteDroite = Note.Which.C;
 		}
-		if(Input.GetKey(KeyCode.RightShift))
+		if(Input.GetKey(KeyCode.Q))
 		{
 			if(noteGauche == Note.Which.NONE)
 				noteGauche = Note.Which.E;
 			else
 				noteDroite = Note.Which.E;
 		}	
-		if(Input.GetKey(KeyCode.End))
+		if(Input.GetKey(KeyCode.D))
 		{
 			if(noteGauche == Note.Which.NONE)
 				noteGauche = Note.Which.F;
@@ -139,25 +139,36 @@ public class KinectGameController : MonoBehaviour
 	private Note.Which getNote (Vector3 handPos)
 	{
 		if (handPos.y >= headPos.y) {
-			if (handPos.x > headPos.x + 0.25)
+			if (handPos.x > headPos.x + 0.2)
 			{
 				return Note.Which.C;
 			}
-			if (handPos.x < headPos.x - 0.25)
+			if (handPos.x < headPos.x - 0.2)
 				return Note.Which.A;
 			
 			return Note.Which.B;
-		}	
+		}
+		else if(mainManager.HasLaterals()){
+			if (handPos.x > headPos.x + 0.5)
+			{
+				return Note.Which.F;
+			}
+			if (handPos.x < headPos.x - 0.5)
+				return Note.Which.E;
+		}
 		return Note.Which.NONE;
 	}
 	
 	private Note.Which getNoteGenous ()
 	{
-		float diff = leftKnee.y - rightKnee.y;
-		if(diff < 0) diff = -diff;
-		if (diff > 0.1) {
-					
-			return Note.Which.D;
+		if(mainManager.HasKnees())
+		{
+			float diff = leftKnee.y - rightKnee.y;
+			if(diff < 0) diff = -diff;
+			if (diff > 0.1) {
+						
+				return Note.Which.D;
+			}
 		}
 		return Note.Which.NONE;
 	}

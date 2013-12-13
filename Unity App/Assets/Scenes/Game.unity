@@ -1344,6 +1344,32 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: b834b0175f67dc641a4951b532528d12, type: 2}
   toucheObject: {fileID: 643817967}
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
+--- !u!1 &277532120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 277532121}
+  m_Layer: 0
+  m_Name: StartB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &277532121
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277532120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .848960102, y: -.599999249, z: 10.6700001}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1317543080}
 --- !u!1 &301262818
 GameObject:
   m_ObjectHideFlags: 0
@@ -3155,7 +3181,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 665201621}
   m_Layer: 0
-  m_Name: StartB
+  m_Name: StartD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3168,7 +3194,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 665201620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .848960102, y: -.599999249, z: 10.6700001}
+  m_LocalPosition: {x: .848960102, y: -.699999988, z: 10.6700001}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1317543080}
@@ -3380,7 +3406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b417c3d828c057a40b74a38d65e1ea9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 665201620}
+  startPoint: {fileID: 277532120}
   notePrefab: {fileID: 100000, guid: 0dd6478f7da71f241aa25dafc6843695, type: 2}
   toucheObject: {fileID: 1596309811}
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
@@ -4462,7 +4488,7 @@ Transform:
   m_PrefabInternal: {fileID: 1034191146}
   m_GameObject: {fileID: 820735079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.69667816, y: -54.9107056, z: 33.6845093}
+  m_LocalPosition: {x: 8.69667816, y: -54.9107056, z: 201.995392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1811461168}
@@ -4666,7 +4692,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0099cc09e124a43e68375bf6b1ae7238, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 33.6845093
+      value: 201.995392
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0099cc09e124a43e68375bf6b1ae7238, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6138,6 +6164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 778621351}
+  - {fileID: 277532121}
   - {fileID: 96353306}
   - {fileID: 665201621}
   - {fileID: 1336617832}
@@ -6787,7 +6814,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1628987991}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -7994,7 +8021,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clavier: 0
   timeToNote: 2
-  decalageNotesLaterales: .5
   reflexTime: .150000006
   timeAfterNote: .150000006
   timeBeforeNote: .150000006
@@ -8008,7 +8034,7 @@ MonoBehaviour:
   AreaD: {fileID: 549113955}
   AreaE: {fileID: 1771889159}
   AreaF: {fileID: 1436844985}
-  jsonFile1: {fileID: 4900000, guid: 1fdab58ef603bab479f090d08760d296, type: 3}
+  jsonFile1: {fileID: 4900000, guid: 04e20b0bf810dfd4cb2c87321b85a9db, type: 3}
   music1: {fileID: 8300000, guid: 7393ca66f17251648bda068e7d0c4f3d, type: 3}
   jsonFile2: {fileID: 4900000, guid: 9915965b07e54df4397f3688100255bb, type: 3}
   music2: {fileID: 8300000, guid: c7f7affe9a394bf448cfb5378f83cade, type: 3}
@@ -8571,12 +8597,12 @@ Transform:
   m_LocalPosition: {x: 6.02033663, y: 3.39036703, z: -.180634975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 820735082}
-  - {fileID: 1935875338}
   - {fileID: 174601878}
-  - {fileID: 430198492}
+  - {fileID: 1935875338}
   - {fileID: 1636340867}
+  - {fileID: 820735082}
   - {fileID: 1185590948}
+  - {fileID: 430198492}
   m_Father: {fileID: 0}
 --- !u!1 &1935875335
 GameObject:
@@ -9695,7 +9721,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2125111566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
