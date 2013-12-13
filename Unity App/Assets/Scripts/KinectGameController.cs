@@ -18,7 +18,7 @@ public class KinectGameController : MonoBehaviour
 	public Note.Which noteGauche, noteDroite, noteGenous;
 	public bool bonusActivated;
 	
-	protected Vector3 headPos, lastHeadPos, leftHand, rightHand, leftKnee, rightKnee;
+	protected Vector3 headPos, lastHeadPos, leftHand, rightHand, frontLeftHand, frontRightHand, leftKnee, rightKnee;
 	
 	
 	// Use this for initialization
@@ -45,7 +45,7 @@ public class KinectGameController : MonoBehaviour
 		
 		if(Input.GetKey(KeyCode.LeftArrow))
 			noteGauche = Note.Which.A;
-		if(Input.GetKey(KeyCode.DownArrow))
+		if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow))
 		{
 			if(noteGauche == Note.Which.NONE)
 				noteGauche = Note.Which.B;
@@ -58,6 +58,20 @@ public class KinectGameController : MonoBehaviour
 				noteGauche = Note.Which.C;
 			else
 				noteDroite = Note.Which.C;
+		}
+		if(Input.GetKey(KeyCode.RightShift))
+		{
+			if(noteGauche == Note.Which.NONE)
+				noteGauche = Note.Which.E;
+			else
+				noteDroite = Note.Which.E;
+		}	
+		if(Input.GetKey(KeyCode.End))
+		{
+			if(noteGauche == Note.Which.NONE)
+				noteGauche = Note.Which.F;
+			else
+				noteDroite = Note.Which.F;
 		}	
 		if(Input.GetKey(KeyCode.Space))
 		{

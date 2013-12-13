@@ -1,12 +1,12 @@
 #song{
     text-align: center;
-    width: 300px;
+    width: 450px;
     margin:auto;
     margin-top:20px;
 }
 
 #pistes{
-    width: 164px; 
+    width: 328px; 
     border:3px solid #CCC; 
     border-radius: 3px;
     display: inline-block;
@@ -19,7 +19,7 @@
     display: inline-block;
     margin:0px;
     height:100%;
-    margin-right: -166px;
+    margin-right: -330px;
     margin-top: -15px;
 }
 .time-item{
@@ -41,7 +41,13 @@
 #pisteA .note{background-color: #f6300a;}
 #pisteB{ border-right: 1px solid #AAA;}
 #pisteB .note{ background-color: #f6ef2a;}
+#pisteC{ border-right: 1px solid #AAA;}
 #pisteC .note{ background-color: #0a62da;}
+#pisteD .note{ background-color: #e92076;}
+#pisteE{ border-right: 1px solid #AAA;}
+#pisteE .note{ background-color: #3333DD;}
+#pisteF{ border-right: 1px solid #AAA;}
+#pisteF .note{ background-color: #33DDDD;}
 
 .note{
     position:absolute; 
@@ -63,16 +69,22 @@
 }
 .view{
     display: inline-block;
-    width:300px; height:300px;
-    border-radius: 300px;
+    width:200px; height:200px;
+    border-radius: 200px;
     border:1px solid #ccc;
     background-color: #fff;
-    margin-top: 50px;
+    margin-top: 200px;
+}
+#E, #F{
+    position: relative;
+    top: -100px;
 }
 .activeA{background-color: #f6300a;}
 .activeB{background-color: #f6ef2a;}
-.activeC{background-color: #0a62da;
-}
+.activeC{background-color: #0a62da;}
+.activeD{background-color: #e92076;}
+.activeE{background-color: #3333DD;}
+.activeF{background-color: #33DDDD;}
 
 #save{margin-top: 6px;}
 

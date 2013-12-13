@@ -9,6 +9,7 @@ public class MainManager : MonoBehaviour
 	//PARAMETRES
 	public bool clavier = false;
 	public float timeToNote = 2f;
+	public float decalageNotesLaterales = 0f;
 	public float reflexTime = 0.1f;
 	public float timeAfterNote = 0.3f;
 	public float timeBeforeNote = 0.1f;
@@ -24,7 +25,7 @@ public class MainManager : MonoBehaviour
 	public GUITexture AreaE;
 	public GUITexture AreaF;
 	
-	protected ArrayList notesA, notesB, notesC, notesD;
+	protected ArrayList notesA, notesB, notesC, notesD, notesE, notesF;
 	protected bool started;
 	protected bool countdownOver;
 	protected float beginning;	
@@ -101,7 +102,7 @@ public class MainManager : MonoBehaviour
 				
 		initializeFromJSON();
 		if(direct_start)
-			StartPistes();
+			StartCoroutine("StartPistes");
 	}
 	
 	// Update is called once per frame
@@ -113,7 +114,7 @@ public class MainManager : MonoBehaviour
 			{
 				this.started = true;
 				if(!direct_start)
-					StartPistes();
+					StartCoroutine("StartPistes");
 			}
 			else
 			{//gestion du countdown
@@ -145,16 +146,16 @@ public class MainManager : MonoBehaviour
 	}	
 	
 	private void StartPistes () 
-	{
+	{		
 		AreaA.GetComponent<NoteManager>().init(notesA, Note.Which.A, this);
 		AreaB.GetComponent<NoteManager>().init(notesB, Note.Which.B, this);
 		AreaC.GetComponent<NoteManager>().init(notesC, Note.Which.C, this);
 		AreaD.GetComponent<NoteManager>().init(notesD, Note.Which.D, this);
-		//Test note E and F
-		//AreaE.GetComponent<NoteManager>().init(notesB, Note.Which.E, this);
-		//AreaF.GetComponent<NoteManager>().init(notesB, Note.Which.F, this);
+		AreaE.GetComponent<NoteManager>().init(notesE, Note.Which.E, this);
+		AreaF.GetComponent<NoteManager>().init(notesF, Note.Which.F, this);
 		
 		StartCoroutine("StartSong");
+		//yield return new WaitForSeconds(this.decalageNotesLaterales);
 	}	
 	
 	private IEnumerator StartSong () 
@@ -202,6 +203,26 @@ public class MainManager : MonoBehaviour
 		{
 			foreach (IDictionary note in dd) {
 				notesD.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
+			}
+		}	
+		
+		// récupération des notes de la piste E
+		IList ee = (IList)search ["E"];
+		notesE = new ArrayList();
+		if(ee != null)
+		{
+			foreach (IDictionary note in ee) {
+				notesE.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
+			}
+		}	
+		
+		// récupération des notes de la piste E
+		IList ff = (IList)search ["F"];
+		notesF = new ArrayList();
+		if(ff != null)
+		{
+			foreach (IDictionary note in ff) {
+				notesF.Add(new Note(Int32.Parse(note ["start"].ToString()), Int32.Parse(note ["length"].ToString())));
 			}
 		}
 		

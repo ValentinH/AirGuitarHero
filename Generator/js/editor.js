@@ -3,12 +3,15 @@ var total_length=0;
 var recording = false;
 var start = 0;
 var d, t;
-var n1, n2, n3;
+var n1, n2, n3, n4, n5, n6;
 var notes;
 var song;
 var fired1 = false;
 var fired2 = false;
 var fired3 = false;
+var fired4 = false;
+var fired5 = false;
+var fired6 = false;
 var player;
 
 $(function() 
@@ -73,6 +76,7 @@ $(function()
 			notes = [];
 			start = t;
 			total_length = 0;
+			fired1 = fired2 = fired3 = fired4 = fired5 = fired6 = false;
 			$("#input").html("");
 			$(this).text("Stop");
 			$("#feedback").show();
@@ -119,6 +123,30 @@ $(function()
 					$("#C").addClass("activeC");
 				}
 				break;
+				case 32:
+				if(!fired4)
+				{
+					fired4 = true;
+					n4 = t-start;
+					$("#D").addClass("activeD");
+				}
+				break;
+				case 16:
+				if(!fired4)
+				{
+					fired5 = true;
+					n5 = t-start;
+					$("#E").addClass("activeE");
+				}
+				break;
+				case 35:
+				if(!fired6)
+				{
+					fired6 = true;
+					n6 = t-start;
+					$("#F").addClass("activeF");
+				}
+				break;
 			}
 		}
 	});
@@ -143,11 +171,27 @@ $(function()
 				song.C.push(new Note(n3, (t-start-n3)));
 				$("#C").removeClass("activeC");
 				break;
+				case 32:
+				fired4 = false;
+				song.D.push(new Note(n4, (t-start-n4)));
+				$("#D").removeClass("activeD");
+				break;
+				case 16:
+				fired5 = false;
+				song.E.push(new Note(n5, (t-start-n5)));
+				$("#E").removeClass("activeE");
+				break;
+				case 35:
+				fired6 = false;
+				song.F.push(new Note(n6, (t-start-n6)));
+				$("#F").removeClass("activeF");
+				break;
 			}
 		// S
 		if(e.keyCode == 83)
 			$("#start").click();
-	}
+		return false;
+		}
 });
 });
 
@@ -183,6 +227,9 @@ function displayNotes()
 	displayPiste(song.A, "A");
 	displayPiste(song.B, "B");
 	displayPiste(song.C, "C");
+	displayPiste(song.D, "D");
+	displayPiste(song.E, "E");
+	displayPiste(song.F, "F");
 
 	$("#song").css({height: round(100,total_length) +100});
 	$("#song").show();	
@@ -229,7 +276,7 @@ function displayTime()
 	{
 		var d = new Date(i*1000)
 		var newTime = $("<div>", {class: "time-item"});
-		newTime.html(checkTime(d.getMinutes())+":"+checkTime(d.getSeconds())+" ___________________________");
+		newTime.html(checkTime(d.getMinutes())+":"+checkTime(d.getSeconds())+" ______________________________________________________");
 		$("#time").append(newTime);
 	}
 }
@@ -254,6 +301,15 @@ function save()
 	$("#pisteC .note").each(function(){
 		song.C.push(new Note( $(this).position().top*10,  $(this).height()*10));
 	});
+	$("#pisteD .note").each(function(){
+		song.D.push(new Note( $(this).position().top*10,  $(this).height()*10));
+	});
+	$("#pisteE .note").each(function(){
+		song.E.push(new Note( $(this).position().top*10,  $(this).height()*10));
+	});
+	$("#pisteF .note").each(function(){
+		song.F.push(new Note( $(this).position().top*10,  $(this).height()*10));
+	});
 
 	cleanSong();
 	setDirectStart();
@@ -277,7 +333,13 @@ function setDirectStart()
 		song.direct_start = false;
 	if(song.B.length > 0 && song.B[0].start < 3500)
 		song.direct_start = false;
-	if(song.B.length > 0 && song.B[0].start < 3500)
+	if(song.C.length > 0 && song.C[0].start < 3500)
+		song.direct_start = false;
+	if(song.D.length > 0 && song.D[0].start < 3500)
+		song.direct_start = false;
+	if(song.E.length > 0 && song.E[0].start < 3500)
+		song.direct_start = false;
+	if(song.F.length > 0 && song.F[0].start < 3500)
 		song.direct_start = false;
 }
 
@@ -286,6 +348,9 @@ function cleanSong(s)
 	cleanPiste(song.A);
 	cleanPiste(song.B);
 	cleanPiste(song.C);
+	cleanPiste(song.D);
+	cleanPiste(song.E);
+	cleanPiste(song.F);
 }
 function cleanPiste(p)
 {	
@@ -306,6 +371,9 @@ function Song() {
 	this.A = [];
 	this.B = [];
 	this.C = [];
+	this.D = [];
+	this.E = [];
+	this.F = [];
 	this.direct_start = true;
 }
 
