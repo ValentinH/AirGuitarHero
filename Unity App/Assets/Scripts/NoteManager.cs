@@ -7,6 +7,9 @@ public class NoteManager : MonoBehaviour
 	public GameObject notePrefab;
 	public GameObject toucheObject;
 	
+	//Hauteur de la touche
+	public float toucheHeight = 0.7f;
+	
 	//Particule des notes jouées
 	public GameObject particle;
 	protected GameObject newParticle = null;
@@ -86,14 +89,14 @@ public class NoteManager : MonoBehaviour
 			//gestion de la note jouée par le joueur
 			if(isNotePlayed())
 			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 0.5f, toucheObject.transform.position.z);	
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, toucheHeight - 0.2f, toucheObject.transform.position.z);	
 				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);
 				if(this.played && newParticle == null)
 					newParticle = (GameObject) Instantiate(particle, toucheObject.transform.position, toucheObject.transform.rotation);
 			}
 			else
 			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, 1f, toucheObject.transform.position.z);
+				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, toucheHeight, toucheObject.transform.position.z);
 				toucheObject.transform.renderer.material.color = new Color(39f/255,45f/255,255f/255,255f/255);	
 				if(newParticle != null)
 					Destroy(newParticle);

@@ -81,7 +81,6 @@ public class MainManager : MonoBehaviour
 		Hashtable h =  SceneManager.GetSceneArguments();
 		if( h!=null)
 		{
-			// POURQUOI NE PAS METTRE LE JSON ET LA MUSIQUE DANS LA HASHTABLE AU MOMENT DE LA SELECTION DU NIVEAU ?
 			int whichMusic = (int) h["level"];
 			if(whichMusic == 1)
 			{				
