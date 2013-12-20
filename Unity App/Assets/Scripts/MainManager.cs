@@ -58,6 +58,8 @@ public class MainManager : MonoBehaviour
 	
 	protected KinectGameController kinectController;
 	
+	protected bool confirmOn;
+	
 	
 	// Use this for initialization
 	void Start () 
@@ -75,6 +77,7 @@ public class MainManager : MonoBehaviour
 		bonusOn = false;
 		hasLaterals = false;
 		hasKnees = false;
+		confirmOn = false;
 		
 		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
 		
@@ -143,8 +146,13 @@ public class MainManager : MonoBehaviour
 		
 		//Fin de la partie
 		if(this.beginning_song != 0){
-			if(Time.time > (this.beginning_song + this.song_length + 5f) || Input.GetKey(KeyCode.Escape))
+			if(Time.time > (this.beginning_song + this.song_length + 5f))
 				Application.LoadLevel("MainMenu");
+		}
+		
+		if(Input.GetKey(KeyCode.Escape)) {
+			confirmOn = true;
+			Time.timeScale = 0;
 		}
 	}	
 	
@@ -303,5 +311,21 @@ public class MainManager : MonoBehaviour
 	public bool HasKnees()
 	{
 		return hasKnees;	
+	}
+	
+	void OnGUI() {		
+		if(confirmOn) {
+			GUI.Box (new Rect (Screen.width/2 - 100,Screen.height/2-75,200,150), "Do you wanna quit?");
+			// Make the first button. If pressed, quit game 
+			if (GUI.Button (new Rect (Screen.width/2-40,Screen.height/2-30,80,20), "Yes")) {
+				Application.LoadLevel("MainMenu");
+				Time.timeScale = 1;
+			}
+			if (GUI.Button (new Rect (Screen.width/2-40,Screen.height/2,80,20), "No")) {
+				confirmOn=false;
+				Time.timeScale = 1;
+			}
+            
+		}
 	}
 }
