@@ -83,15 +83,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.13999987
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .5
+      value: .50000006
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.23829579
+      value: 1.23000002
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1388,6 +1388,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: b834b0175f67dc641a4951b532528d12, type: 2}
   toucheObject: {fileID: 612167064}
   toucheHeight: .699999988
+  toucheAngle: 0
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!1 &277532120
 GameObject:
@@ -2874,6 +2875,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: b1e98d27e672ba943b588dae06a83016, type: 2}
   toucheObject: {fileID: 1414107014}
   toucheHeight: 0
+  toucheAngle: 0
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!131 &549113955
 GUITexture:
@@ -3067,7 +3069,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1096478817}
   m_GameObject: {fileID: 612167064}
-  m_Mesh: {fileID: 4300000, guid: d83d71df7b2c2b048be309cd6ac009f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 82a2e8e4fb411434c9f9496bd18ad268, type: 3}
 --- !u!4 &612167068
 Transform:
   m_ObjectHideFlags: 0
@@ -3075,8 +3077,8 @@ Transform:
   m_PrefabInternal: {fileID: 1096478817}
   m_GameObject: {fileID: 612167064}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -1.31050706, y: 0, z: -.455769062}
-  m_LocalScale: {x: .550000012, y: .550000012, z: 1.3096}
+  m_LocalPosition: {x: -1.31050706, y: 0, z: -.4481363}
+  m_LocalScale: {x: .00549999997, y: .00549999997, z: .0130960001}
   m_Children: []
   m_Father: {fileID: 1301134608}
 --- !u!1 &627443615
@@ -3379,6 +3381,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: 0dd6478f7da71f241aa25dafc6843695, type: 2}
   toucheObject: {fileID: 823001558}
   toucheHeight: .699999988
+  toucheAngle: 0
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!1 &820735079
 GameObject:
@@ -4487,7 +4490,7 @@ Transform:
   m_GameObject: {fileID: 823001558}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: .843743205, y: 0, z: -.44813633}
-  m_LocalScale: {x: .550000012, y: .550000012, z: 1.3096}
+  m_LocalScale: {x: .00549999997, y: .00549999997, z: .0130960001}
   m_Children: []
   m_Father: {fileID: 1301134608}
 --- !u!23 &823001560
@@ -4516,7 +4519,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1291033282}
   m_GameObject: {fileID: 823001558}
-  m_Mesh: {fileID: 4300000, guid: d83d71df7b2c2b048be309cd6ac009f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 82a2e8e4fb411434c9f9496bd18ad268, type: 3}
 --- !u!1 &830624653
 GameObject:
   m_ObjectHideFlags: 0
@@ -4541,8 +4544,8 @@ Transform:
   m_PrefabInternal: {fileID: 26083509}
   m_GameObject: {fileID: 830624653}
   m_LocalRotation: {x: .681573451, y: .188302085, z: .18830213, w: .681573451}
-  m_LocalPosition: {x: 5.13999987, y: .5, z: 1.23829579}
-  m_LocalScale: {x: .550000012, y: .550000012, z: 1.3096}
+  m_LocalPosition: {x: 5, y: .50000006, z: 1.23000002}
+  m_LocalScale: {x: .00549999997, y: .00549999997, z: .0130960001}
   m_Children: []
   m_Father: {fileID: 1301134608}
 --- !u!23 &830624655
@@ -4571,7 +4574,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 26083509}
   m_GameObject: {fileID: 830624653}
-  m_Mesh: {fileID: 4300000, guid: d83d71df7b2c2b048be309cd6ac009f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 82a2e8e4fb411434c9f9496bd18ad268, type: 3}
 --- !u!1001 &892344715
 Prefab:
   m_ObjectHideFlags: 0
@@ -4780,7 +4783,7 @@ Transform:
   m_GameObject: {fileID: 968957121}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 3.22997832, y: 0, z: -.448135853}
-  m_LocalScale: {x: .550000012, y: .550000012, z: 1.3096}
+  m_LocalScale: {x: .00549999997, y: .00549999997, z: .0130960001}
   m_Children: []
   m_Father: {fileID: 1301134608}
 --- !u!23 &968957123
@@ -4809,7 +4812,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1048298955}
   m_GameObject: {fileID: 968957121}
-  m_Mesh: {fileID: 4300000, guid: d83d71df7b2c2b048be309cd6ac009f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 82a2e8e4fb411434c9f9496bd18ad268, type: 3}
 --- !u!1001 &1034191146
 Prefab:
   m_ObjectHideFlags: 0
@@ -4991,7 +4994,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -.455769062
+      value: -.4481363
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6329,6 +6332,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: c71ceaeea32c1dc4e80aaae635b28322, type: 2}
   toucheObject: {fileID: 968957121}
   toucheHeight: .699999988
+  toucheAngle: 0
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!1001 &1291033282
 Prefab:
@@ -6818,6 +6822,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: c3316642dd568df4aa24ee9d0f4c818d, type: 2}
   toucheObject: {fileID: 830624653}
   toucheHeight: 1.20000005
+  toucheAngle: -32
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!131 &1436844985
 GUITexture:
@@ -6940,15 +6945,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.38000011
+      value: -3.25999999
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .5
+      value: .50000006
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.23069787
+      value: 1.23000002
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e0f5cf158788da45b1330d863339af8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8567,6 +8572,7 @@ MonoBehaviour:
   notePrefab: {fileID: 100000, guid: e5fb483e18bf78644a99b6a98b1615a0, type: 2}
   toucheObject: {fileID: 1978721097}
   toucheHeight: 1.20000005
+  toucheAngle: 32
   particle: {fileID: 100000, guid: 5692846c5ce8f4ee08ef64bec4aad0bd, type: 2}
 --- !u!131 &1771889159
 GUITexture:
@@ -9892,8 +9898,8 @@ Transform:
   m_PrefabInternal: {fileID: 1560424884}
   m_GameObject: {fileID: 1978721097}
   m_LocalRotation: {x: .67375493, y: -.214602962, z: -.214602903, w: .673754871}
-  m_LocalPosition: {x: -3.38000011, y: .5, z: 1.23069787}
-  m_LocalScale: {x: .550000012, y: .550000012, z: 1.3096}
+  m_LocalPosition: {x: -3.25999999, y: .50000006, z: 1.23000002}
+  m_LocalScale: {x: .00549999997, y: .00549999997, z: .0130960001}
   m_Children: []
   m_Father: {fileID: 1301134608}
 --- !u!23 &1978721099
@@ -9922,4 +9928,4 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1560424884}
   m_GameObject: {fileID: 1978721097}
-  m_Mesh: {fileID: 4300000, guid: d83d71df7b2c2b048be309cd6ac009f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 82a2e8e4fb411434c9f9496bd18ad268, type: 3}

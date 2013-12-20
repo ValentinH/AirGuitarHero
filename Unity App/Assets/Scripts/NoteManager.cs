@@ -9,6 +9,10 @@ public class NoteManager : MonoBehaviour
 	
 	//Hauteur de la touche
 	public float toucheHeight = 0.7f;
+	//Position latérale de la touche
+	protected float touchePosX;
+	//Angle de la touche
+	public float toucheAngle = 0;
 	
 	//Particule des notes jouées
 	public GameObject particle;
@@ -52,7 +56,8 @@ public class NoteManager : MonoBehaviour
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
-		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));		
+		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
+		this.touchePosX = toucheObject.transform.position.x;
 	}
 		
 	public void init(ArrayList liste, Note.Which piste, MainManager m)
@@ -89,14 +94,14 @@ public class NoteManager : MonoBehaviour
 			//gestion de la note jouée par le joueur
 			if(isNotePlayed())
 			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, toucheHeight - 0.2f, toucheObject.transform.position.z);	
+				toucheObject.transform.position = new Vector3((Mathf.Tan(-toucheAngle) * 0.2f) + touchePosX, toucheHeight - 0.2f, toucheObject.transform.position.z);	
 				toucheObject.transform.renderer.material.color = new Color(76f/255,111f/255,240f/255,255f/255);
 				if(this.played && newParticle == null)
 					newParticle = (GameObject) Instantiate(particle, toucheObject.transform.position, toucheObject.transform.rotation);
 			}
 			else
 			{
-				toucheObject.transform.position = new Vector3(toucheObject.transform.position.x, toucheHeight, toucheObject.transform.position.z);
+				toucheObject.transform.position = new Vector3(touchePosX, toucheHeight, toucheObject.transform.position.z);
 				toucheObject.transform.renderer.material.color = new Color(39f/255,45f/255,255f/255,255f/255);	
 				if(newParticle != null)
 					Destroy(newParticle);
