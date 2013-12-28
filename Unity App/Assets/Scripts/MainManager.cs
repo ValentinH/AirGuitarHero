@@ -31,15 +31,10 @@ public class MainManager : MonoBehaviour
 	protected float beginning_song;	
 	protected float song_length;	
 	
-	protected int points;
-	
-	protected int combo;
-	
+	protected int points, combo, maxCombo, notesReussies, notesTotales;	
 	protected int multiplicateur;
 	protected bool bonusOn;
 	
-	protected float notesReussies;
-	protected float notesTotales;
 	
 	protected bool direct_start;
 	
@@ -70,10 +65,8 @@ public class MainManager : MonoBehaviour
 		this.countdownOver = false;
 		this.beginning = Time.time;
 		this.beginning_song = 0;
-		points = 0;
-		combo = 0;
-		multiplicateur = 1;
-		notesTotales = notesReussies = 0;
+		points = combo = maxCombo = notesTotales = notesReussies = 0;
+		multiplicateur = 1;		
 		bonusOn = false;
 		hasLaterals = false;
 		hasKnees = false;
@@ -136,7 +129,7 @@ public class MainManager : MonoBehaviour
 			}
 			
 		}
-		if(this.beginning_song != 0)
+		if(this.beginning_song != 0 && (Time.time - this.beginning_song <= this.song_length+1))
 			GUIManager.SetTime(Time.time - this.beginning_song, this.song_length);
 		
 		if(this.kinectController.bonusActivated){
@@ -146,10 +139,17 @@ public class MainManager : MonoBehaviour
 		
 		//Fin de la partie
 		if(this.beginning_song != 0){
-			if(Time.time > (this.beginning_song + this.song_length + 5f))
-				Application.LoadLevel("MainMenu");
+			if(Time.time > (this.beginning_song + this.song_length + 1))
+			{
+				Hashtable h = new Hashtable();
+				h.Add("maxCombo", this.maxCombo);
+				h.Add("notesTotales", this.notesTotales);
+				h.Add("notesReussies", this.notesReussies);
+				h.Add("points", this.points);
+				SceneManager.LoadScene("ScoreMenu", h);
+			}
 		}
-		
+		//Pause
 		if(Input.GetKey(KeyCode.Escape)) {
 			confirmOn = true;
 			Time.timeScale = 0;
@@ -182,6 +182,7 @@ public class MainManager : MonoBehaviour
 		MusicManager.SetMusic(music);
 		beginning_song = Time.time;
 		song_length = MusicManager.GetMusicLength();
+		GUIManager.SetTime(Time.time - this.beginning_song, this.song_length);
 	}
 	
 	private void initializeFromJSON()
@@ -264,7 +265,9 @@ public class MainManager : MonoBehaviour
 		}
 		else
 			resetCombo();
-		GUIManager.SetPourcentage((int)(notesReussies/notesTotales*100f));
+		
+		float roundPercent = Mathf.Round(((float)notesReussies/(float)notesTotales*100f)*10) /10;
+		GUIManager.SetPourcentage(roundPercent);
 	}
 	
 	public void addPoints(int points)
@@ -277,6 +280,7 @@ public class MainManager : MonoBehaviour
 	{
 		this.combo++;	
 		GUIManager.SetCombo(this.combo);
+		if(this.maxCombo<this.combo) this.maxCombo = this.combo;
 		setMultiplieur();
 	}
 	

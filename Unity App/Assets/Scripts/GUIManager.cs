@@ -68,7 +68,7 @@ public class GUIManager : MonoBehaviour
 		instance.multiplicateurlabel.text = "Multiplicateur: "+multi;
 	}
 	
-	public static void SetPourcentage(int pourcents)
+	public static void SetPourcentage(float pourcents)
 	{
 		instance.pourcentslabel.text = pourcents+"%";
 	}
