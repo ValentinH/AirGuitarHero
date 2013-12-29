@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 
 public class ScoreMenu : MenuBase {
@@ -22,6 +23,12 @@ public class ScoreMenu : MenuBase {
 		
 		Vector2 middle = new Vector2(this.screenWidth / 2f, this.screenHeight / 2f);
 		continueRect = new Rect((middle.x -  this.screenWidth /12f), (this.screenHeight/1.2f), this.screenWidth / 6f, this.screenHeight / 8f);
+		
+		//adjust label size to screen
+		GameObject.FindGameObjectWithTag("ScoreTitle").guiText.fontSize = (int) Math.Round(Screen.width / 14d);
+		pointsLabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		maxComboLabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		notesLabel.fontSize = (int) Math.Round(Screen.width / 28d);
 		
 		Hashtable h =  SceneManager.GetSceneArguments();
 		if( h!=null)

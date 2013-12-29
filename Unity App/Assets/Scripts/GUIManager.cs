@@ -5,7 +5,6 @@ using System.IO;
 public class GUIManager : MonoBehaviour 
 {		
 	public GUIText debugLabel;
-	public float x = 16;
 	
 	public GUIText comboLabel;
 	public GUIText countdownLabel;
