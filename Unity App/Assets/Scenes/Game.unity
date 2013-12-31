@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLabel: {fileID: 91748962}
-  x: 16
   comboLabel: {fileID: 301262820}
   countdownLabel: {fileID: 1576030234}
   multiplicateurlabel: {fileID: 1124931969}
@@ -8205,7 +8204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f4f3e60e523ea4d838ebe33077a8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clavier: 0
+  clavier: 1
   timeToNote: 2
   reflexTime: .150000006
   timeAfterNote: .150000006

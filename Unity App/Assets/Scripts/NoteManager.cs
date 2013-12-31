@@ -194,6 +194,9 @@ public class NoteManager : MonoBehaviour
 			GameObject noteObject = (GameObject) this.noteObjects[0];			
 			this.originalColor = noteObject.transform.renderer.material.color;
 			noteObject.transform.renderer.material.color = c;
+			//On modifie la couleur de la flamme
+			Transform objFlame = noteObject.transform.FindChild("Flame");
+			objFlame.particleSystem.startColor = c;
 		}	
 	}
 	
@@ -256,7 +259,13 @@ public class NoteManager : MonoBehaviour
 		float z =  1f * (length/0.2f);
 		notePrefab.transform.localScale = new Vector3(notePrefab.transform.localScale.x, notePrefab.transform.localScale.y, 1f * (length/0.2f));
 		Vector3 startPosition = new Vector3(startPoint.transform.position.x, startPoint.transform.position.y, startPoint.transform.position.z +(z-1)/2);
+		//La note est instanciée avec sa flamme
 		GameObject obj = (GameObject) Instantiate(notePrefab, startPosition, startPoint.transform.rotation);
+		//On récupère la flamme de l'objet
+		Transform objFlame = obj.transform.FindChild("Flame");
+		//On calcule la longueur de la flamme
+		objFlame.particleSystem.startLifetime = (float)((z)/10f);
+		objFlame.localPosition = new Vector3(0f, -0.4f, (float)(1.7f-(z/2f)));
 		
 		this.noteObjects.Add(obj);
 		//on prevoit la destruction de l'objet 3 secondes après la fin de sa note
