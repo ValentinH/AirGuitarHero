@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class NoteManager : MonoBehaviour 
@@ -25,7 +25,7 @@ public class NoteManager : MonoBehaviour
 	//référence du Main manager
 	protected MainManager mainManager;	
 	//référence du Kinect controller
-	protected KinectGameController kinectController;	
+	protected GameController kinectController;	
 	//temps du lancement de la piste
 	protected float beginning;	
 	//si la piste à commencer
@@ -56,7 +56,7 @@ public class NoteManager : MonoBehaviour
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
-		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
+		this.kinectController = (GameController) FindObjectOfType(typeof(GameController));
 		this.touchePosX = toucheObject.transform.position.x;
 	}
 		

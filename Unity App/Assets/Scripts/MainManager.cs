@@ -51,7 +51,7 @@ public class MainManager : MonoBehaviour
 	protected bool hasLaterals;
 	protected bool hasKnees;
 	
-	protected KinectGameController kinectController;
+	protected GameController kinectController;
 	
 	protected bool confirmOn;
 	
@@ -72,7 +72,7 @@ public class MainManager : MonoBehaviour
 		hasKnees = false;
 		confirmOn = false;
 		
-		this.kinectController = (KinectGameController) FindObjectOfType(typeof(KinectGameController));
+		this.kinectController = (GameController) FindObjectOfType(typeof(GameController));
 		
 		Hashtable h =  SceneManager.GetSceneArguments();
 		if( h!=null)

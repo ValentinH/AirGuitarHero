@@ -4,7 +4,7 @@ using System.Collections;
 using System.IO;
 using MiniJSON;
 
-public class KinectMenuController : MonoBehaviour
+public class MenuController : MonoBehaviour
 {	
 	public GameObject KinectPrefab;
 	

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MenuBase : MonoBehaviour {
@@ -7,7 +7,7 @@ public class MenuBase : MonoBehaviour {
 	public GUISkin menuSkin;
 	protected GUIText debug;
 	
-	protected KinectMenuController kinectController;
+	protected MenuController kinectController;
 	
 	protected float screenWidth, screenHeight;
 	
@@ -18,7 +18,7 @@ public class MenuBase : MonoBehaviour {
 		this.clickEnabled = false;
 		StartCoroutine("enableClick", 1f);
 		
-		this.kinectController = (KinectMenuController) FindObjectOfType(typeof(KinectMenuController));		
+		this.kinectController = (MenuController) FindObjectOfType(typeof(MenuController));		
 		this.debug = (GUIText) GameObject.Find("DebugLabel").GetComponent<GUIText>();
 		this.screenWidth = Screen.width;
 		this.screenHeight = Screen.height;

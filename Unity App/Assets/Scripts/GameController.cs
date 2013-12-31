@@ -4,7 +4,7 @@ using System.Collections;
 using System.IO;
 using MiniJSON;
 
-public class KinectGameController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
 	public GameObject KinectPrefab;
 	protected SkeletonWrapper sw;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 
@@ -16,7 +16,7 @@ public class Credits : MenuBase {
 	// Update is called once per frame
 	void Update () {
 		//kinect management
-		if(this.clickEnabled && (this.kinectController.getRightHand().z > KinectMenuController.CLICK_Z || (this.kinectController.getLeftHand().z > KinectMenuController.CLICK_Z)))
+		if(this.clickEnabled && (this.kinectController.getRightHand().z > MenuController.CLICK_Z || (this.kinectController.getLeftHand().z > MenuController.CLICK_Z)))
 		{
 			if(checkClick(this.backRect))
 			{		
