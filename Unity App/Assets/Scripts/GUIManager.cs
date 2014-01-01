@@ -13,6 +13,9 @@ public class GUIManager : MonoBehaviour
 	public GUIText pourcentslabel;
 	public GUIText timeLabel;
 	
+	public GUITexture GUIBorderLeft;
+	public GUITexture GUIBorderRight;
+	
 	protected GameObject screen;
 	
     private static GUIManager instance = null;
@@ -36,6 +39,12 @@ public class GUIManager : MonoBehaviour
 		instance.multiplicateurlabel.fontSize = (int) Math.Round(Screen.width / 28d);;
 		instance.pointsLabel.fontSize = (int) Math.Round(Screen.width / 28d);
 		instance.pourcentslabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		
+		//Adjust backgroud borders to screen
+		float factor = (float)((Screen.width + 39.8f)/3556f);
+		instance.GUIBorderLeft.guiTexture.transform.localScale = new Vector3(factor, factor , 1f);
+		instance.GUIBorderRight.guiTexture.transform.localScale = new Vector3(factor, factor , 1f);
+		Debug.Log (factor);
     }
 	
 	public static void SetTime(float current, float total)
@@ -77,5 +86,5 @@ public class GUIManager : MonoBehaviour
 		instance.debugLabel.enabled = true;
 		instance.debugLabel.text = text;
 	}
-
+	
 }
