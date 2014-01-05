@@ -34,17 +34,17 @@ public class GUIManager : MonoBehaviour
 		instance.screen.transform.localScale = new Vector3(Screen.width/100f, 1, Screen.height/100f);
 		
 		//adjust label size to screen
-		instance.timeLabel.fontSize = (int) Math.Round(Screen.width / 28d);
-		instance.comboLabel.fontSize = (int) Math.Round(Screen.width / 28d);
-		instance.multiplicateurlabel.fontSize = (int) Math.Round(Screen.width / 28d);;
-		instance.pointsLabel.fontSize = (int) Math.Round(Screen.width / 28d);
-		instance.pourcentslabel.fontSize = (int) Math.Round(Screen.width / 28d);
+		Debug.Log (Screen.width);
+		instance.timeLabel.fontSize = (int) Math.Round(Screen.width / 43d);
+		instance.comboLabel.fontSize = (int) Math.Round(Screen.width / 43d);
+		instance.multiplicateurlabel.fontSize = (int) Math.Round(Screen.width / 43d);;
+		instance.pointsLabel.fontSize = (int) Math.Round(Screen.width / 43d);
+		instance.pourcentslabel.fontSize = (int) Math.Round(Screen.width / 43d);
 		
 		//Adjust backgroud borders to screen
 		float factor = (float)((Screen.width + 39.8f)/3556f);
 		instance.GUIBorderLeft.guiTexture.transform.localScale = new Vector3(factor, factor , 1f);
 		instance.GUIBorderRight.guiTexture.transform.localScale = new Vector3(factor, factor , 1f);
-		Debug.Log (factor);
     }
 	
 	public static void SetTime(float current, float total)
