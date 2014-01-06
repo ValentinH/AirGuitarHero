@@ -263,10 +263,13 @@ public class NoteManager : MonoBehaviour
 		GameObject obj = (GameObject) Instantiate(notePrefab, startPosition, startPoint.transform.rotation);
 		//On récupère la flamme de l'objet
 		Transform objFlame = obj.transform.FindChild("Flame");
-		//On calcule la longueur de la flamme
-		objFlame.particleSystem.startLifetime = (float)((z)/10f);
-		objFlame.localPosition = new Vector3(0f, -0.4f, (float)(1.7f-(z/2f)));
-		
+
+		// Interpolation de Lagrange pour les points [1, 1], [2, 0.3], [3, 0], [5, -0.2], [10, -0.35]
+		float zFlame = (float) (83*Mathf.Pow(z,4) - 1683*Mathf.Pow(z,3) + 11383*Mathf.Pow(z,2) - 32013*z + 32310)/8400;
+		objFlame.localPosition = new Vector3(0f, -0.4f, zFlame);
+		//On calcule la longueur de la flamme,  Interpolation de Lagrange pour les points [1, 0.1], [2, 0.2], [3, 0.35], [5, 0.6], [10,1.25]
+		objFlame.particleSystem.startLifetime = (float) (53*Mathf.Pow(z,4) - 1003*Mathf.Pow(z,3) + 5953*Mathf.Pow(z,2) - 6593*z + 6630)/50400;
+
 		this.noteObjects.Add(obj);
 		//on prevoit la destruction de l'objet 3 secondes après la fin de sa note
 		Destroy(obj, length + 3f);

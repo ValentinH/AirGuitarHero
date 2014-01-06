@@ -38,7 +38,8 @@ public class MenuController : MonoBehaviour
 		rightText = (Texture2D) Resources.Load("Images/right_cursor", typeof(Texture2D));
 		leftPushedText = (Texture2D) Resources.Load("Images/left_cursor_grip", typeof(Texture2D));
 		rightPushedText = (Texture2D) Resources.Load("Images/right_cursor_grip", typeof(Texture2D));
-		
+		leftCursor.texture = leftText;
+		rightCursor.texture = rightText;
 	}
 	
 	// Update is called once per frame
@@ -77,9 +78,7 @@ public class MenuController : MonoBehaviour
 				rightCursor.texture = rightPushedText;
 			else 
 				if(rightHand.z < CLICK_Z && rightCursor.texture.Equals(rightPushedText))
-					rightCursor.texture = rightText;
-			
-			
+					rightCursor.texture = rightText;			
 			
 		}
 		
