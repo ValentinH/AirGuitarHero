@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ScoreMenu.unity
+    path: Assets/Scenes/MainMenu.unity
   - enabled: 1
     path: Assets/Scenes/LevelSelection.unity
   - enabled: 1
@@ -19,5 +19,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ScoreMenu.unity
   - enabled: 1
     path: Assets/Scenes/Calibrate.unity
+  - enabled: 0
+    path: Assets/Scenes/ScoreMenu.unity
   - enabled: 1
     path: Assets/Scenes/ScoreMenu.unity

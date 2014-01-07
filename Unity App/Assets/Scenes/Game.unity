@@ -8203,9 +8203,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clavier: 1
   timeToNote: 2
-  reflexTime: .150000006
-  timeAfterNote: .150000006
-  timeBeforeNote: .150000006
+  reflexTime: .25
+  timeAfterNote: .25
+  timeBeforeNote: .25
   countdown: 3
   debug: 0
   decalageMusique: .5

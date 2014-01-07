@@ -153,6 +153,7 @@ public class MainManager : MonoBehaviour
 		if(Input.GetKey(KeyCode.Escape)) {
 			confirmOn = true;
 			Time.timeScale = 0;
+			MusicManager.PauseMusic();
 		}
 	}	
 	
@@ -302,7 +303,7 @@ public class MainManager : MonoBehaviour
 			this.multiplicateur = 4;
 		else
 			this.multiplicateur = 8;
-		if(this.multiplicateur > 2 && bonusOn)
+		if(this.multiplicateur >= 8 && bonusOn)
 			this.multiplicateur = 16;
 		GUIManager.SetMultiplicateur(this.multiplicateur);
 	}
@@ -328,6 +329,7 @@ public class MainManager : MonoBehaviour
 			if (GUI.Button (new Rect (Screen.width/2-40,Screen.height/2,80,20), "No")) {
 				confirmOn=false;
 				Time.timeScale = 1;
+				MusicManager.PlayMusic();
 			}
             
 		}

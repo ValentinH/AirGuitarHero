@@ -52,7 +52,8 @@ public class NoteManager : MonoBehaviour
 	
 	protected Color originalColor;
 	
-	
+	protected static float[] zFlamesArray = new float[] {1, 0.3f,0,-0.12f,-0.2f};
+
 	void Start () 
 	{
 		this.guiTexture.enabled = false;
@@ -256,7 +257,7 @@ public class NoteManager : MonoBehaviour
 		yield return new WaitForSeconds(start-getTime());
 		
 		//on calcule la longueur de la note et son decalage de position pour que le bord inferieur soit au début de la piste
-		float z =  1f * (length/0.2f);
+		float z =  (length/0.2f);
 		notePrefab.transform.localScale = new Vector3(notePrefab.transform.localScale.x, notePrefab.transform.localScale.y, 1f * (length/0.2f));
 		Vector3 startPosition = new Vector3(startPoint.transform.position.x, startPoint.transform.position.y, startPoint.transform.position.z +(z-1)/2);
 		//La note est instanciée avec sa flamme
@@ -264,12 +265,17 @@ public class NoteManager : MonoBehaviour
 		//On récupère la flamme de l'objet
 		Transform objFlame = obj.transform.FindChild("Flame");
 
-		// Interpolation de Lagrange pour les points [1, 1], [2, 0.3], [3, 0], [5, -0.2], [10, -0.35]
-		float zFlame = (float) (83*Mathf.Pow(z,4) - 1683*Mathf.Pow(z,3) + 11383*Mathf.Pow(z,2) - 32013*z + 32310)/8400;
-		objFlame.localPosition = new Vector3(0f, -0.4f, zFlame);
-		//On calcule la longueur de la flamme,  Interpolation de Lagrange pour les points [1, 0.1], [2, 0.2], [3, 0.35], [5, 0.6], [10,1.25]
-		objFlame.particleSystem.startLifetime = (float) (53*Mathf.Pow(z,4) - 1003*Mathf.Pow(z,3) + 5953*Mathf.Pow(z,2) - 6593*z + 6630)/50400;
+		// Interpolation de Lagrange pour les points [1, 1.2], [2, 0.2], [3, 0], [5, -0.2], [10, -0.3], [20, -0.43], [50, -0.47]
+		//float zFlame = (float) (83*Mathf.Pow(z,4) - 1683*Mathf.Pow(z,3) + 11383*Mathf.Pow(z,2) - 32013*z + 32310)/8400;
+		float zFlame = 0;
+		if(z <5 && z>0) zFlame = zFlamesArray[((int)z)-1];
+		else if( z <= 15) zFlame = -0.2f - (z-5)*0.02f;
+		else zFlame = -0.4f - ((int)z/20)*0.02f;
 
+		objFlame.localPosition = new Vector3(0f, -0.4f, zFlame);
+		//On calcule la longueur de la flamme,  Interpolation de Lagrange pour les points [1, 0.1], [2, 0.2], [3, 0.35], [5, 0.6], [10,1.25], [20, 2.5], [50, 6.5]
+		objFlame.particleSystem.startLifetime = z*0.1f + (z/5*0.05f);
+		//Debug.Log(z+" =>"+zFlame);
 		this.noteObjects.Add(obj);
 		//on prevoit la destruction de l'objet 3 secondes après la fin de sa note
 		Destroy(obj, length + 3f);

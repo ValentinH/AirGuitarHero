@@ -58,6 +58,9 @@ public class MusicManager : MonoBehaviour
 	
 	public static void PlayMusic(){
 		instance.mainAudio.Play();
+	}	
+	public static void PauseMusic(){
+		instance.mainAudio.Pause();
 	}
 	
 	public static void StopMusic(){
